@@ -1,13 +1,8 @@
-import './App.css'
+import React from "react";
+import SongCard from "./components/SongCard";
 
 function App() {
-  
-
-  return (
-    <>
-      
-    </>
-  )
+  return <SongCard />;
 }
 
-export default App
+export default App;
