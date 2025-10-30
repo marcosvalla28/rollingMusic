@@ -33,7 +33,27 @@ const cancionCard = () => {
       ],},
   ];
 
-  
+  const Cards = ({ titulo, canciones }) => (
+    <div className="mb-12">
+      <h2 className="text-4xl font-bold text-white mb-6">{titulo}</h2>
+      <div className="flex overflow-x-auto space-x-4 pb-2 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-black">
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="bg-black min-h-screen p-6">
+      <div className="max-w-6xl mx-auto">
+        {secciones.map((seccion, index) => (
+          <Cards
+            key={index}
+            titulo={seccion.titulo}
+            canciones={seccion.canciones}
+          />
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default cancionCard
