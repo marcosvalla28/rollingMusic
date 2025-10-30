@@ -38,7 +38,13 @@ const cancionCard = () => {
   return (
     <div className="bg-black min-h-screen p-6">
       <div className="max-w-6xl mx-auto">
-        
+        {secciones.map((seccion, index) => (
+          <Cards
+            key={index}
+            titulo={seccion.titulo}
+            canciones={seccion.canciones}
+          />
+        ))}
       </div>
     </div>
   );
