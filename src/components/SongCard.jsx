@@ -41,7 +41,18 @@ const cancionCard = () => {
           <div
             key={index}
             className="shrink-0 w-44 bg-neutral-900 rounded-lg p-3 text-center text-white hover:scale-105 transition-transform duration-300 cursor-pointer">
-            
+            {cancion.imagen ? (
+              <img
+                src={cancion.imagen}
+                alt={cancion.titulo}
+                className="w-full h-44 object-cover rounded-md mb-2"
+                loading="lazy"
+              />
+            ) : (
+              <div className="bg-gray-700 border-2 border-dashed border-gray-600 rounded-md w-full h-44 mb-2 flex items-center justify-center">
+                <span className="text-gray-500 text-xs">Sin imagen</span>
+              </div>
+            )}
 
             <h4 className="text-lg font-semibold truncate">{cancion.titulo}</h4>
             <p className="text-sm text-gray-400 truncate">{cancion.artista}</p>
