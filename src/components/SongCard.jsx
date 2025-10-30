@@ -37,7 +37,16 @@ const cancionCard = () => {
     <div className="mb-12">
       <h2 className="text-4xl font-bold text-white mb-6">{titulo}</h2>
       <div className="flex overflow-x-auto space-x-4 pb-2 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-black">
-        
+        {canciones.map((cancion, index) => (
+          <div
+            key={index}
+            className="shrink-0 w-44 bg-neutral-900 rounded-lg p-3 text-center text-white hover:scale-105 transition-transform duration-300 cursor-pointer">
+            
+
+            <h4 className="text-lg font-semibold truncate">{cancion.titulo}</h4>
+            <p className="text-sm text-gray-400 truncate">{cancion.artista}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
