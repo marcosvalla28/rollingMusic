@@ -33,6 +33,15 @@ const cancionCard = () => {
       ],},
   ];
 
-}
+  
+
+  return (
+    <div className="bg-black min-h-screen p-6">
+      <div className="max-w-6xl mx-auto">
+        
+      </div>
+    </div>
+  );
+};
 
 export default cancionCard
