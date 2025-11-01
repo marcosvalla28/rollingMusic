@@ -45,6 +45,24 @@ const Canciones = () => {     //define estado inical de las secciones
   }, []);
 
 
+  const Cards = ({ titulo, data, loading, error }) => {     //funcion para no mostrar pantalla en blanco
+  if (loading) { //cuando esten cargando las imagenes mostrar esto
+    return ( //contenedores para las cards no cargadas
+      <div className="mb-12">
+        <h2 className="text-4xl font-bold text-white mb-6">{titulo}</h2>
+        <div className="flex space-x-4 pb-2">
+          {[...Array(6)].map((_, i) => ( //modelo cada contenedores vacios de cards
+            <div key={i} className="shrink-0 w-44 bg-gray-800 rounded-lg p-3">
+              <div className="w-full h-44 bg-gray-700 rounded-md mb-2"></div> 
+              <div className="h-4 bg-gray-700 rounded mb-2"></div>
+              <div className="h-3 bg-gray-700 rounded"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
  
   
 
@@ -58,5 +76,5 @@ const Canciones = () => {     //define estado inical de las secciones
 
 
 };
-
+}
 export default cancionCard
