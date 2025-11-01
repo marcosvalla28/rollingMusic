@@ -10,7 +10,7 @@ import NotFound from "./pages/NotFound";
 function App() {
   return (
     <>
-      {/* <div id="app" className="relative h-screen p-2 gap-2">
+      <div id="app" className="relative h-screen p-2 gap-2">
     
         <header className="[grid-area:navbar] flex-col flex overflow-y-auto">
           Navbar
@@ -30,10 +30,17 @@ function App() {
           <Player/>
           <WavePlayer  />
         </footer>
-      </div> */}
-      <div>
-        <NotFound />
+
+        <div className="[grid-area:main] flex flex-col justify-end items-start">
+          <Footer />
+        </div>
+
+
+
       </div>
+      {/* <div>
+        <NotFound />
+      </div> */}
   </>
   );    
 }
