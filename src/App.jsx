@@ -5,11 +5,12 @@ import Aside from "./components/Aside";
 import Player from './components/Player'
 import Home from './pages/Home'
 import Footer from "./components/Footer";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
     <>
-      <div id="app" className="relative h-screen p-2 gap-2">
+      {/* <div id="app" className="relative h-screen p-2 gap-2">
     
         <header className="[grid-area:navbar] flex-col flex overflow-y-auto">
           Navbar
@@ -29,9 +30,9 @@ function App() {
           <Player/>
           <WavePlayer  />
         </footer>
-        <div className="[grid-area:main] flex flex-col justify-end items-start">
-        <Footer />
-        </div>
+      </div> */}
+      <div>
+        <NotFound />
       </div>
   </>
   );    

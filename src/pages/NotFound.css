@@ -10,7 +10,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: black;
+  background: url(/src/assets/imagenes/logos/fondo-nosotros.png);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
