@@ -1,10 +1,9 @@
+
 import WavePlayer from "./components/WavePlayer";
 import "./App.css";
 import Aside from "./components/Aside";
 import Player from './components/Player'
 import Home from './pages/Home'
-
-
 
 function App() {
   return (
