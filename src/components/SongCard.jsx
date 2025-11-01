@@ -76,7 +76,7 @@ const Canciones = () => {     //define estado inical de las secciones
   return (     //contendedores para las canciones cargadas exitosamente
       <div className="mb-12">     
         <h2 className="text-4xl font-bold text-white mb-6">{titulo}</h2>
-        {/*aqui iria el scroll */}
+        <div className="flex overflow-x-auto space-x-4 pb-2 [scrollbar-width:8px] [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-track]:bg-black [&::-webkit-scrollbar-thumb]:bg-gray-900 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-gray-600 transition-colors">  {/*todo esto para modificar el scrool */}
         
         {data.map((cancion, index) => (     //recorre las canciones
           <div
@@ -100,7 +100,8 @@ const Canciones = () => {     //define estado inical de las secciones
               <p className="text-sm text-gray-400 truncate">{cancion.artist?.name}</p>
             </div>
           ))}
-      </div> 
+      </div>
+    </div>
     );
   };
 
