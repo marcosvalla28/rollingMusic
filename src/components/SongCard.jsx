@@ -54,8 +54,8 @@ const Canciones = () => {     //define estado inical de las secciones
     }
 
 
-  const Cards = ({ titulo, data, loading, error }) => {     //funcion para no mostrar pantalla en blanco
-  if (loading) { //cuando esten cargando las imagenes mostrar esto
+  const Cards = ({ titulo, data, loading, error }) => {     //funcion para no mostrar pantalla en blanco misenstras carga la pagina
+  if (loading) {
     return ( //contenedores para las cards no cargadas
       <div className="mb-12">
         <h2 className="text-4xl font-bold text-white mb-6">{titulo}</h2>
@@ -71,6 +71,39 @@ const Canciones = () => {     //define estado inical de las secciones
       </div>
     );
   }
+
+
+  return (     //contendedores para las canciones cargadas exitosamente
+      <div className="mb-12">     
+        <h2 className="text-4xl font-bold text-white mb-6">{titulo}</h2>
+        {/*aqui iria el scroll */}
+        
+        {data.map((cancion, index) => (     //recorre las canciones
+          <div
+            key={cancion.id || index}
+              className="shrink-0 w-44 bg-neutral-900 rounded-lg p-3 text-center text-white hover:scale-105 transition-transform duration-300 cursor-pointer"
+              //onClick={() => window.open(cancion.link, '_blank')}     //al hcaer click en una tarjeta te lleva a la cancion en deezer
+              >
+
+              {cancion.album?.cover_medium ? (   //coloca imagen en caso de tenerla 
+                <img
+                  src={cancion.album.cover_medium}
+                  alt={cancion.title}
+                  className="w-full h-44 object-cover rounded-md mb-2"/>
+              ) : (
+                <div className="bg-gray-700 border-2 border-gray-600 rounded-md w-full h-44 mb-2 flex items-center justify-center"> {/**contenedor para las cards sin imagenes */}
+                  <span className="text-gray-500 text-xs">Sin imagen</span>
+                </div>
+              )}
+              {/*//titulo y artista en la card */}
+              <h4 className="text-lg font-semibold truncate">{cancion.title}</h4> 
+              <p className="text-sm text-gray-400 truncate">{cancion.artist?.name}</p>
+            </div>
+          ))}
+      </div> 
+    );
+  };
+
 
  
   
