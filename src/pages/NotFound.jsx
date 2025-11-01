@@ -1,5 +1,5 @@
 import React from 'react'
-import "./NotFound.css";
+import "../assets/styles/NotFound.css";
 
 function NotFound() {
   const handleClick = () => {

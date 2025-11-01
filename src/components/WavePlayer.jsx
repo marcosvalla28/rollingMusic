@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import WaveSurfer from "wavesurfer.js";
-import Song from "../music/Roses - Saint jhn.mp3";
+import Song from "../assets/musica/music/Roses - Saint jhn.mp3";
 import { PlayIcon, PauseIcon, VolumeIcon } from "../icons/icon.jsx";
 
 export default function WavePlayer() {
