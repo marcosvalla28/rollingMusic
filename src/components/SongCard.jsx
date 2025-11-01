@@ -15,12 +15,36 @@ const Canciones = () => {     //define estado inical de las secciones
       const response = await fetch(endpoint);     //peticion http a la url
       if (!response.ok) throw new Error(` Error en HTTP ${response.status}`);
       const result = await response.json();  
-      const tracks = result.data || [];     
-      
-    } catch (error) {
-      console.error(`Error en sección ${index}:`, error);            
+      const tracks = result.data || [];  
+
+      setSecciones(prev =>     //funcion para actualizar las secciones
+        prev.map((sec, i) => 
+          i === index ? { ...sec, data: tracks, loading: false, error: null } 
+            : sec
+        )
+      )    
+    }catch (error) {
+      console.error(`Error en sección ${index}:`, error);
+
+      setSecciones(prev =>     //actualiza las secciones con errores
+        prev.map((sec, i) =>
+          i === index ? { ...sec, loading: false, error: error.message }
+          : sec
+        )   
+      );               
     }
   };
+
+ 
+  
+
+
+
+
+
+
+
+
 
   
 };
