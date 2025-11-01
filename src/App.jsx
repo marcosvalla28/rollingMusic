@@ -29,6 +29,9 @@ function App() {
           <Player/>
           <WavePlayer  />
         </footer>
+        <div className="[grid-area:main] flex flex-col justify-end items-start">
+        <Footer />
+        </div>
       </div>
   </>
   );    
