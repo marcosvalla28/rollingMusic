@@ -4,6 +4,7 @@ import "./App.css";
 import Aside from "./components/Aside";
 import Player from './components/Player'
 import Home from './pages/Home'
+import Footer from "./components/Footer";
 
 function App() {
   return (
