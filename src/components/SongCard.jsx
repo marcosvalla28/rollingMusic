@@ -22,7 +22,8 @@ const Canciones = () => {     //define estado inical de las secciones
           i === index ? { ...sec, data: tracks, loading: false, error: null } 
             : sec
         )
-      )    
+      )  
+
     }catch (error) {
       console.error(`Error en sección ${index}:`, error);
 
@@ -35,6 +36,15 @@ const Canciones = () => {     //define estado inical de las secciones
     }
   };
 
+
+  useEffect(() => {     //funcion para cargar canciones al arbir pagina
+    fetchCanciones(0, '/api/search?q=rock&limit=10');
+    fetchCanciones(1, '/api/chart/0/tracks?limit=10');     
+    fetchCanciones(2, '/api/chart/0/albums?limit=10');
+    fetchCanciones(3, '/api/chart/0/tracks?limit=10')
+  }, []);
+
+
  
   
 
@@ -46,7 +56,7 @@ const Canciones = () => {     //define estado inical de las secciones
 
 
 
-  
+
 };
 
 export default cancionCard
