@@ -44,6 +44,15 @@ const Canciones = () => {     //define estado inical de las secciones
     fetchCanciones(3, '/api/chart/0/tracks?limit=10')
   }, []);
 
+  if (error) {
+      return (
+        <div className="mb-12"> {/*mostrar esto si hay un error con el la seccion*/}
+          <h2 className="text-4xl font-bold text-white mb-6">{titulo}</h2>     
+          <p className="text-red-500">Error: {error}</p>
+        </div>
+      );
+    }
+
 
   const Cards = ({ titulo, data, loading, error }) => {     //funcion para no mostrar pantalla en blanco
   if (loading) { //cuando esten cargando las imagenes mostrar esto
