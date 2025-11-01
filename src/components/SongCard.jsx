@@ -106,18 +106,21 @@ const Canciones = () => {     //define estado inical de las secciones
   };
 
 
- 
-  
-
-
-
-
-
-
-
-
-
-
+  return (     //estructura de toda la pagina
+    <div className="bg-black min-h-screen p-6">   {/*//fondo pagina(despues cambiar)*/}
+      <div className="max-w-6xl mx-auto">  
+        {secciones.map((seccion, index) => (
+          <Cards
+            key={index}
+            titulo={seccion.titulo}
+            data={seccion.data}
+            loading={seccion.loading}
+            error={seccion.error}
+          />
+        ))}
+      </div>
+    </div>
+  );
 };
-}
+
 export default cancionCard
