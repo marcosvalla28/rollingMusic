@@ -1,5 +1,6 @@
 import React from 'react'
 import "../assets/styles/NotFound.css";
+import EfectoLluvia from '../components/EfectoLluvia';
 
 function NotFound() {
   const handleClick = () => {
@@ -8,7 +9,9 @@ function NotFound() {
   };
 
   return (
+    
     <div className="notfound-container">
+      <EfectoLluvia/>
       <header>
         <h1>Error 404</h1>
       </header>
