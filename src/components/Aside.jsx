@@ -1,20 +1,15 @@
 import SideMenuItem from "./SideMenuItem";
-import LibraryIcon from "../icons/LibraryIcon";
-import SideMenuCard from "./SideMenuCard";
-
-
 
 function Aside() {
   return (
-    <nav className="flex flex-col flex-1 gap-2">
-      <div className="bg-blue-700 rounded-lg p-2 flex-1">
-        <ul>
-          <SideMenuItem href="/">
-            <LibraryIcon />
-            Tu Biblioteca
-          </SideMenuItem>
-        </ul>
-      </div>
+    <nav className="flex flex-col flex-1 bg-linear-to-b from-purple-950/40 to-black/40 rounded-lg p-2 text-white">
+      <ul className="flex flex-col space-y-2">
+        <SideMenuItem href="/">Inicio</SideMenuItem>
+        <SideMenuItem href="/artista">Artista</SideMenuItem>
+        <SideMenuItem href="/album">Álbum</SideMenuItem>
+        <SideMenuItem href="/nosotros">Sobre Nosotros</SideMenuItem>
+        <SideMenuItem href="/playlist">Lista de Reproducción</SideMenuItem>
+      </ul>
     </nav>
   );
 }
