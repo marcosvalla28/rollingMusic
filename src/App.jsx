@@ -6,7 +6,6 @@ import Home from './pages/Home'
 import Navbar from "./components/Navbar.jsx";
 
 
-
 function App() {
   return (
     <>

@@ -1,6 +1,4 @@
 @import 'tailwindcss';
-
-
 #app {
     display: grid;
     grid-template-areas: 
