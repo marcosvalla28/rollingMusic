@@ -1,9 +1,9 @@
-* {
+/* *{
   text-decoration: none;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
+} */
 
 .notfound-container {
   display: flex;
@@ -19,13 +19,13 @@
   gap: 30px;
 }
 
-h1 {
+.h1Error {
   font-size: 5em;
   color: #e6e0e0;
   font-family: 'Courier New', Courier, monospace;
 }
 
-main {
+.mainError {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -33,19 +33,19 @@ main {
   gap: 20px;
 }
 
-h2 {
+.paginaErrorTitulo {
   font-size: 2em;
   color: #e0dbdb;
 }
 
-p {
+.textoPaginaError {
   font-size: 1.2em;
   color: #f8f6f6;
   text-align: center;
   max-width: 600px;
 }
 
-button {
+.bototnError {
   padding: 10px 20px;
   font-size: 1.5em;
   border: none;
@@ -56,11 +56,11 @@ button {
   transition: background 0.3s ease;
 }
 
-button:hover {
+.bototnError:hover {
   background: #2fb809;
 }
 
-img {
+.img-error {
   width: 300px;
   border-radius: 10px;
 }

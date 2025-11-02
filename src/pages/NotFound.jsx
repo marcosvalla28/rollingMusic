@@ -13,23 +13,24 @@ function NotFound() {
     <div className="notfound-container">
       <EfectoLluvia/>
       <header>
-        <h1>Error 404</h1>
+        <h1 className='h1Error'>Error 404</h1>
       </header>
 
-      <main>
+      <main className='mainError'>
         <img
           src="https://i.gifer.com/7VE.gif"
           alt="gif de la imagen de error"
+          className='img-error'
         />
 
-        <h2>Página no encontrada</h2>
+        <h2 className='paginaErrorTitulo'>Página no encontrada</h2>
 
-        <p>
+        <p className='textoPaginaError'>
           La página que estás buscando no existe o fue movida. <br />
           Por favor, revisá la dirección o volvé al inicio.
         </p>
 
-        <button onClick={handleClick}>🔙 Volver al Inicio</button>
+        <button className='bototnError' onClick={handleClick}>🔙 Volver al Inicio</button>
 
 
         
