@@ -23,7 +23,7 @@ function NotFound() {
           className='img-error'
         />
 
-        <h2 className='paginaErrorTitulo'>Página no encontrada</h2>
+        <h2 className='paginaErrorTitulo'>Se nos cayó la página… pero no las ganas de programar.</h2>
 
         <p className='textoPaginaError'>
           La página que estás buscando no existe o fue movida. <br />

@@ -10,7 +10,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: url(/src/assets/imagenes/logos/fondo-nosotros.png);
+  background: url(/src/assets/imagenes/logos/fondo\ musica.jpg);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -21,8 +21,14 @@
 
 .h1Error {
   font-size: 5em;
-  color: #e6e0e0;
-  font-family: 'Courier New', Courier, monospace;
+  color: #ffffff;
+  font-family: 'Bangers', cursive;
+  border: 3px solid #d11c1c;
+  border-radius: 15px;
+  padding: 30px 50px;
+  text-align: center;
+  background: rgba(106, 85, 197, 0.795);
+  box-shadow: 0 0 20px #e23308, 0 0 40px #e03e16, 0 0 60px #f23d06;
 }
 
 .mainError {
@@ -35,12 +41,13 @@
 
 .paginaErrorTitulo {
   font-size: 2em;
-  color: #e0dbdb;
+  color: #ffffff;
+  
 }
 
 .textoPaginaError {
   font-size: 1.2em;
-  color: #f8f6f6;
+  color: #ffffff;
   text-align: center;
   max-width: 600px;
 }
@@ -57,10 +64,9 @@
 }
 
 .bototnError:hover {
-  background: #2fb809;
+  background: #50af36;
 }
 
 .img-error {
-  width: 300px;
-  border-radius: 10px;
+  width: 400px;
 }
