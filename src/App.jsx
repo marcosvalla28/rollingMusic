@@ -1,3 +1,6 @@
+
+import React from "react";
+import SongCard from "./components/SongCard";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Aside from "./components/Aside.jsx";
