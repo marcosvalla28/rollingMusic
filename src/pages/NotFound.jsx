@@ -11,7 +11,7 @@ function NotFound() {
   return (
     
     <div className="notfound-container">
-      <EfectoLluvia/>
+     
       <header>
         <h1 className='h1Error'>Error 404</h1>
       </header>

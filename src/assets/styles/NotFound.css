@@ -70,3 +70,89 @@
 .img-error {
   width: 400px;
 }
+@media (max-width: 480px) {
+  .h1Error {
+    font-size: 2.8em;
+    padding: 15px 25px;
+  }
+
+  .paginaErrorTitulo {
+    font-size: 1.5em;
+    text-align: center;
+  }
+
+  .textoPaginaError {
+    font-size: 1em;
+    max-width: 90%;
+  }
+
+  .img-error {
+    width: 250px;
+  }
+
+  .bototnError {
+    font-size: 1.1em;
+    width: 100%;
+    padding: 12px;
+  }
+
+  .notfound-container {
+    gap: 20px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 1024px) {
+  .h1Error {
+    font-size: 3.5em;
+    padding: 20px 35px;
+  }
+
+  .paginaErrorTitulo {
+    font-size: 1.8em;
+  }
+
+  .textoPaginaError {
+    font-size: 1.1em;
+    max-width: 80%;
+  }
+
+  .img-error {
+    width: 320px;
+  }
+
+  .bototnError {
+    font-size: 1.3em;
+  }
+
+  .notfound-container {
+    padding: 30px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1366px) {
+  .h1Error {
+    font-size: 4.2em;
+    padding: 25px 40px;
+  }
+
+  .paginaErrorTitulo {
+    font-size: 1.9em;
+  }
+
+  .textoPaginaError {
+    font-size: 1.15em;
+    max-width: 85%;
+  }
+
+  .img-error {
+    width: 350px;
+  }
+
+  .bototnError {
+    font-size: 1.4em;
+  }
+
+  .notfound-container {
+    padding: 40px;
+  }
+}
