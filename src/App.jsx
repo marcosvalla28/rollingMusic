@@ -3,8 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Aside from "./components/Aside.jsx";
 import Player from './components/Player.jsx';
 import Home from './pages/Home'
-import Footer from "./components/Footer";
-import NotFound from "./pages/NotFound";}
+import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar.jsx";
 
 function App() {
@@ -29,11 +28,6 @@ function App() {
         <footer className="[grid-area:player] bg-linear-to-b from-purple-950/40">
           <Player  />
         </footer>
-
-        <div className="[grid-area:main] flex flex-col justify-end items-start">
-          <Footer />
-        </div>
-
         </div>  
   </>
   );    

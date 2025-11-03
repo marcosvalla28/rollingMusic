@@ -1,11 +1,13 @@
 import React from 'react';
 import { useSongs } from '../context/SongsContext';
 import SongCard from '../components/SongCard'; 
+import Footer from '../components/Footer';
 
 const Home = () => {
   const { songs, isLoading} = useSongs();
 
   return (
+    <>
     <div className="home-page w-full h-full flex flex-col items-center">
   <h1 className="text-2xl font-bold mb-8">Catálogo de Música</h1>
       
@@ -18,7 +20,10 @@ const Home = () => {
           !isLoading && <p>Busca tus canciones favoritas en Deezer.</p>
         )}
       </div>
-    </div>
+    </div>  
+      <Footer />
+      </>
+    
   );
 };
 
