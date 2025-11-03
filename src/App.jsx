@@ -11,8 +11,12 @@ import NotFound from "./pages/NotFound";
 function App() {
   return (
     <>
-    {/* <About /> */}
-      <div id="app" className="relative h-screen p-2 gap-2">
+    <About />
+      
+
+
+
+{/*       <div id="app" className="relative h-screen p-2 gap-2">
     
         <header className="[grid-area:navbar] flex-col flex overflow-y-auto">
           Navbar
@@ -37,7 +41,7 @@ function App() {
           <Footer />
         </div>
 
-        </div> 
+        </div> */} 
         
 
 
