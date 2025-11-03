@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSongs } from '../context/SongsContext';
 
+
 function SongCard({ song }) { 
     const { selectSong } = useSongs();
 
@@ -25,7 +26,7 @@ function SongCard({ song }) {
 
     return (
 
-        <div id={`song-${codigo_unico}`} className="song-card">
+        <div id={`song-${codigo_unico}`} className="song-card group relative h-full bg-linear-to-br from-pink-500/15 via-purple-600/15 to-cyan-400/15 backdrop-blur-sm border-2 border-cyan-300/40 rounded-2xl p-6 hover:border-pink-500/80 transition-all duration-300 hover:shadow-2xl hover:shadow-pink-500/40 cursor-pointer overflow-hidden">
             
             <img 
                 src={url_imagen} 
