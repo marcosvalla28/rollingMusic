@@ -24,12 +24,12 @@ function App() {
     
         <main className="[grid-area:main] bg-black"> 
                 <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<SongCard />} />
           </Routes>
         </main>
     
         <footer className="[grid-area:player] bg-linear-to-b from-purple-950/40">
-          <Player  />
+          <Player  />         
         </footer>
         </div>  
   </>
