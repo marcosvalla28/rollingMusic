@@ -16,7 +16,7 @@ const Navbar = () => {
         <SearchBar /> 
       </div>
 
-      <div>
+      <div className='btn-usuario'>
         <button className='usuario'>
           
         </button>

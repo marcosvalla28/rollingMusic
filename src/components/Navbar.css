@@ -55,3 +55,79 @@
 .usuario:hover{
   box-shadow: 0 0 10px #ffffff;
 }
+
+
+/* TABLET */
+
+@media (max-width:1024px){
+
+  .searchbox{
+    border-radius: 16px;
+    background-color:rgba(130, 12, 148, 0.522);
+    width: 250px;
+    height: 35px;
+    text-align: center;
+    margin-right: 15px;
+  }
+  
+  .searchbox:hover{
+    background-color:rgba(176, 64, 193, 0.522);
+  }
+  
+  .usuario{
+    background-image:url(https://cdn-icons-png.flaticon.com/512/10813/10813372.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+  }
+
+  .usuario:hover{
+    box-shadow: 0 0 10px #ffffff;
+  }
+  
+}
+
+
+/* MOBILE */
+
+@media (max-width:480px){
+
+  .navbar{
+    height: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .middle{
+    order: 3;
+  }
+
+  .searchbox{
+    border-radius: 16px;
+    background-color:rgba(130, 12, 148, 0.522);
+    width: 200px;
+    height: 35px;
+    text-align: center;
+    margin-right: 15px;
+  }
+  
+  .searchbox:hover{
+    background-color:rgba(176, 64, 193, 0.522);
+  }
+  
+  .usuario{
+    background-image:url(https://cdn-icons-png.flaticon.com/512/10813/10813372.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+  }
+
+  .usuario:hover{
+    box-shadow: 0 0 10px #ffffff;
+  }
+
+}
