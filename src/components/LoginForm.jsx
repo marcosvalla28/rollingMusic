@@ -128,9 +128,9 @@ const LoginForm = () => {
                     </button>
                     
                     <div className="relative flex justify-center text-xs uppercase mb-6">
-                        <div className="flex-grow border-t border-neutral-700"></div>
-                        <span className="flex-shrink mx-4 text-gray-500">O</span>
-                        <div className="flex-grow border-t border-neutral-700"></div>
+                        <div className="grow border-t border-neutral-700"></div>
+                        <span className="shrink mx-4 text-gray-500">O</span>
+                        <div className="grow border-t border-neutral-700"></div>
                     </div>
 
                     {/* FORMULARIO DE EMAIL/PASSWORD */}

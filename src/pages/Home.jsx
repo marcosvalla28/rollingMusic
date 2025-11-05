@@ -33,7 +33,7 @@ const Home = () => {
             <main className="[grid-area:main] bg-black">
             <div className="flex flex-col bg-black min-h-screen text-white">
             {/* El padding lateral (p-4 md:p-8) aplica espaciado a todos los elementos del contenido */}
-            <div className="p-4 md:p-8 flex-grow">
+            <div className="p-4 md:p-8 grow">
                 
                 {/* 🎶 1. SECCIÓN PRINCIPAL: CATÁLOGO / RESULTADOS DE BÚSQUEDA */}
                 <h2 className="text-3xl font-bold text-violet-400 mb-6 border-b border-violet-700 pb-2">
