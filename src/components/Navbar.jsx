@@ -1,5 +1,5 @@
 import SearchBar from '../components/SearchBar';
-import SongCard from '../components/SongCard'; 
+import SongCard from './Canciones'; 
 
 const Navbar = () => {
 
