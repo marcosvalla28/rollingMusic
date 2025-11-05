@@ -1,5 +1,5 @@
 .navbar{
-    background-color: rgb(16, 33, 28);
+    background: linear-gradient(to right, #120228, #4b0082);
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -21,6 +21,10 @@
     margin-right: 15px;
 }
 
+.searchbox:hover{
+  background-color:rgba(176, 64, 193, 0.522);
+}
+
 .middle{
   display: flex;
 }
@@ -31,6 +35,23 @@
   border-radius: 50px;
 }
 
+.nota:hover{
+  box-shadow: 0 0 10px #ffffff;
+}
+
 .search-bar{
   display: flex;
+}
+
+.usuario{
+  background-image:url(https://cdn-icons-png.flaticon.com/512/10813/10813372.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+}
+
+.usuario:hover{
+  box-shadow: 0 0 10px #ffffff;
 }

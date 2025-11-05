@@ -17,8 +17,8 @@ const Navbar = () => {
       </div>
 
       <div>
-        <button>
-          Usuario
+        <button className='usuario'>
+          
         </button>
       </div>
       
