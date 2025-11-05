@@ -8,11 +8,16 @@ import Player from './components/Player.jsx';
 import Home from './pages/Home'
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar.jsx";
+import About from "./pages/About.jsx";
 
 function App() {
   return (
     <>
-      <div id="app" className="relative min-h-screen flex flex-col bg-black m-0 p-0 ">
+
+    <About/>
+
+
+{/*       <div id="app" className="relative min-h-screen flex flex-col bg-black m-0 p-0 ">
     
         <header className="[grid-area:navbar] flex-col flex overflow-y-auto">
           <Navbar/>
@@ -31,7 +36,7 @@ function App() {
         <footer className="[grid-area:player] bg-linear-to-b from-purple-950/40">
           <Player  />         
         </footer>
-        </div>  
+        </div>   */}
   </>
   );    
 }

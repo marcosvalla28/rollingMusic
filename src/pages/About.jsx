@@ -5,6 +5,8 @@ import marcos from '../assets/imagenes/Img-miembros/marcos.png';
 import juan from '../assets/imagenes/Img-miembros/juan.png';
 import moms from '../assets/imagenes/Img-miembros/moms.png';
 import lucas from '../assets/imagenes/Img-miembros/lucas.png';
+import franco from '../assets/imagenes/Img-miembros/franco.png';
+import luis from '../assets/imagenes/Img-miembros/luis.png';
 import EfectoLluvia from '../components/EfectoLluvia';
 import play from '../assets/imagenes/logos/logo-play.png';
 import vinilo from '../assets/imagenes/logos/vinilo.png';
@@ -43,8 +45,8 @@ function About() {
     {
       id: 3,
       nombre: 'Franco Quinteros',
-      img: logo,
-      description: '',
+      img: franco,
+      description: 'Soy un amante de la tecnología y el desarrollo web. Estoy todo el tiempo conociendo cosas nuevas.',
       linkedin: 'https://www.linkedin.com/in/franco-quinteros-dev/',
       github:'https://github.com/FrancoDevBJ'
     },
@@ -59,10 +61,10 @@ function About() {
     {
       id: 5,
       nombre: 'Luis Santiago Sandoval',
-      img: logo,
+      img: luis,
       description: '',
-      linkedin: 'http://www.linkedin.com/in/luis-sandoval-47233b375',
-      github:'https://github.com/marcosvalla28'
+      linkedin: 'https://www.linkedin.com/in/luis-sandoval-47233b375/',
+      github:'https://github.com/LUISS005'
     },
     {
       id: 6,
@@ -131,7 +133,7 @@ function About() {
         src={m.img} 
         alt={m.nombre}
         onClick={() => setMiembroSeleccionado(m)}
-        className={`brightness-50 hover:brightness-90 w-40 h-60 object-contain cursor-pointer opacity-90 flex-wrap  hover:scale-125 transition-transform duration-300 hover:opacity-100 hover:z-50 relative
+        className={`brightness-50  hover:brightness-90 w-40 h-60 object-contain cursor-pointer mask-[linear-gradient(to_bottom,black_60%,transparent)] hover:mask-[linear-gradient(to_bottom,black_90%,transparent)] opacity-90 flex-wrap  hover:scale-125 transition-transform duration-300 hover:opacity-100 hover:z-50 relative
         ${index !== 0 ? '-ml-10' : ''}`}
         />
         ))}
