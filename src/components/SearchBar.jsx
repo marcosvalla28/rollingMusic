@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSongs } from '../context/SongsContext'; 
+import { GiMusicSpell } from "react-icons/gi";
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -14,13 +15,19 @@ const SearchBar = () => {
 
   return (
     <form onSubmit={handleSubmit} className="search-bar">
-      <input
+      <input className='searchbox'
         type="text"
         placeholder="Buscar canción, artista o grupo..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <button type="submit">Buscar</button>
+
+      <div>
+        <button type="submit" className='nota'>
+        <GiMusicSpell size={35} color='rgba(214, 4, 247, 0.61)'/>
+      </button>
+      </div>
+
     </form>
   );
 };
