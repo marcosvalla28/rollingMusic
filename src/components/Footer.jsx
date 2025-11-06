@@ -1,4 +1,4 @@
-import logo from '../assets/imagenes/logos/logo-play.png';
+import logo from '../assets/imagenes/logos/Logo.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedin, faGithub, faFacebook, faInstagram} from "@fortawesome/free-brands-svg-icons";
 import { useState } from 'react';
@@ -27,10 +27,10 @@ function Footer() {
         </div>
 
         <div className='flex flex-row gap-2 align-center justify-center self-center'>
-          <a href="" ><FontAwesomeIcon icon={faLinkedin} size='2x' className='text-violet-400 hover:text-blue-600 hover:scale-125 drop-shadow-xl/50'/></a>
-          <a href=""><FontAwesomeIcon icon={faGithub} size='2x' className='text-violet-400 hover:text-black hover:scale-125 drop-shadow-xl/50'/></a>
-          <a href=""><FontAwesomeIcon icon={faFacebook} size='2x' className='text-violet-400 hover:text-blue-500 hover:scale-125 drop-shadow-xl/50'/></a>
-          <a href=""><FontAwesomeIcon icon={faInstagram} size='2x' className='text-violet-400 hover:text-purple-500 hover:scale-125 drop-shadow-xl/50'/></a>
+          <a href="https://www.linkedin.com/school/rollingcodeschool/posts/?feedView=all" ><FontAwesomeIcon icon={faLinkedin} size='2x' className='text-violet-400 hover:text-blue-600 hover:scale-125 drop-shadow-xl/50'/></a>
+          <a href="https://web.rollingcodeschool.com/"><FontAwesomeIcon icon={faGithub} size='2x' className='text-violet-400 hover:text-black hover:scale-125 drop-shadow-xl/50'/></a>
+          <a href="https://www.facebook.com/RollingCodeSchool?locale=es_LA"><FontAwesomeIcon icon={faFacebook} size='2x' className='text-violet-400 hover:text-blue-500 hover:scale-125 drop-shadow-xl/50'/></a>
+          <a href="https://www.instagram.com/rollingcodeschool/"><FontAwesomeIcon icon={faInstagram} size='2x' className='text-violet-400 hover:text-purple-500 hover:scale-125 drop-shadow-xl/50'/></a>
         </div>
 
         <div className='flex flex-col mt-4 md:mt-0'>
