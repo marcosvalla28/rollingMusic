@@ -3,10 +3,11 @@ import SearchBar from '../components/SearchBar';
 import Logo from '../assets/imagenes/logos/Logo.png';
 import Aside from '../components/Aside';
 import { useAuth } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false); 
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const { user, logout } = useAuth();
 
   // Imagen por defecto cuando no hay usuario
@@ -17,7 +18,7 @@ const Navbar = () => {
   return (
     <>
       <div className="bg-gradient-to-r from-[#120228] to-[#4b0082] flex flex-row w-full h-full items-center justify-between px-4 z-10 relative">
-        
+
         <div className="flex items-center gap-4">
           {/* botón hamburguesa para el modo mobile */}
           <button
@@ -49,18 +50,24 @@ const Navbar = () => {
             </svg>
           </button>
 
-          <img className="w-[80px]" src={Logo} alt="logo"/>
+          <Link to="/Home">
+            <img
+              src={Logo}
+              alt="logo"
+              className="w-[65px] cursor-pointer hover:scale-105 transition-transform duration-200"
+            />
+          </Link>
         </div>
 
         <div className="flex order-3 sm:order-0">
-          <SearchBar /> 
+          <SearchBar />
         </div>
 
         <div className="relative">
-          <button 
-            onClick={() => setIsUserMenuOpen(!isUserMenuOpen)} 
+          <button
+            onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
             className="w-[50px] h-[50px] rounded-full bg-cover bg-center bg-no-repeat hover:shadow-[0_0_10px_#ffffff] transition-shadow border-2 border-purple-500"
-            style={{backgroundImage: `url(${userAvatar})`}}
+            style={{ backgroundImage: `url(${userAvatar})` }}
             aria-label={userName}
             title={userName}
           >
@@ -81,14 +88,14 @@ const Navbar = () => {
             </div>
           )}
         </div>
-        
+
         {/* Overlay y Menú móvil desplegable */}
         {isMobileMenuOpen && (
-          <div 
-            className="md:hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm" 
+          <div
+            className="md:hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm"
             onClick={() => setIsMobileMenuOpen(false)}
           >
-            <div 
+            <div
               className="bg-gradient-to-b from-purple-950 to-black w-64 h-full p-4 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
@@ -102,12 +109,12 @@ const Navbar = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
-              
+
               {/* aside en mobile */}
               <Aside onItemClick={() => setIsMobileMenuOpen(false)} />
             </div>
           </div>
-        )} 
+        )}
       </div>
     </>
   );

@@ -5,6 +5,7 @@ import CatalogoPorSecciones from '../components/CatalogoPorSecciones.jsx';
 import Navbar from '../components/Navbar.jsx';
 import Aside from '../components/Aside.jsx';
 import Player from '../components/Player.jsx';
+import Footer from '../components/Footer.jsx';
 
 const Home = () => {
     const { 
@@ -21,7 +22,7 @@ const Home = () => {
 
     return (
     <>
-    <div id="app" className="grid w-full h-screen bg-black m-0 p-0">
+    <div id="app"   className="grid w-full h-screen bg-black text-white m-0 p-0">
         {/* CORRECCIÓN: Eliminamos overflow-y-auto, ya que el Navbar no debe hacer scroll */}
         <header className="[grid-area:navbar] flex-col flex"> 
             <Navbar/>
@@ -31,7 +32,7 @@ const Home = () => {
             <Aside />
         </aside>
 
-        <main className="[grid-area:main] bg-black">
+        <main className="[grid-area:main] overflow-y-auto p-4 md:p-8">
         <div className="flex flex-col bg-black min-h-screen text-white">
         {/* El padding lateral (p-4 md:p-8) aplica espaciado a todos los elementos del contenido */}
         <div className="p-4 md:p-8 grow">
@@ -57,13 +58,15 @@ const Home = () => {
                     <CatalogoPorSecciones />
                 </div>
             )}
+
             
             
 
         </div>
         </div>
+                    <Footer/>
         </main>
-        <footer className="[grid-area:player] gradient-to-b  from-purple-950/40">
+        <footer className="[grid-area:player] w-full h-full bg-gradient-to-b from-purple-950/40">
             <Player/> {/* El reproductor en su área Grid */}
         </footer>
     </div>
