@@ -29,12 +29,12 @@ const Canciones = ({ songs }) => {     
                 }
             };
 
-            return (
+           return (
           <div
             key={item.codigo_unico || item.id || index} 
                 // La clase no tiene width fijo, el grid se encarga de dimensionarla
             className={`rounded-lg p-3 text-center text-white transition-transform duration-300 ${isPlayable ? 'bg-neutral-900 hover:scale-105 cursor-pointer' : 'bg-neutral-800 opacity-60 cursor-not-allowed'}`}
-            onClick={handleClick}     
+            onClick={handleClick} 
               >
 
               {imageUrl ? (   

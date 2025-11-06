@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { useSongs } from '../context/SongsContext'; 
-import { GiMusicSpell } from "react-icons/gi";
+import { useSongs } from '../context/SongsContext';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMusic } from "@fortawesome/free-solid-svg-icons";
+
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -24,7 +26,7 @@ const SearchBar = () => {
 
       <div>
         <button type="submit" className='nota'>
-        <GiMusicSpell size={35} color='rgba(214, 4, 247, 0.61)'/>
+          <FontAwesomeIcon icon={faMusic} size='xl' />
       </button>
       </div>
 
