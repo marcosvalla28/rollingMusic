@@ -94,7 +94,6 @@ export default function Player() {
       <div className="flex flex-row items-center justify-center gap-6 ">
         {currentSong ? (
           <img
-            // 🛠️ CORRECCIÓN 4: Usar la imagen compatible
             src={displayImage}
             alt={displayTitle || "Portada"} 
             className="w-14 h-14 rounded-lg border-2 border-fuchsia-700"
@@ -108,12 +107,10 @@ export default function Player() {
 
         {currentSong && (
           <p className="text-white text-center hover:text-purple-400 hover:drop-shadow-lg hover:scale-105">
-            {/* 🛠️ CORRECCIÓN 5: Usar el título y artista compatible */}
             Reproduciendo: {displayTitle} - {displayArtist}
           </p>
         )}
         
-        {/* ... (Resto de botones y controles de volumen se mantienen igual) */}
 
         <button
           onClick={() => {
@@ -138,7 +135,7 @@ export default function Player() {
           )}
         </button>
 
-        {/* adelantar   */}
+        {/* adelantar */}
         <button
           onClick={playNextSong}
           className="w-12 h-12 flex items-center justify-center text-purple-300 hover:text-white hover:bg-purple-600/30 rounded-full transition-all duration-300 hover:scale-110 active:scale-95 backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40"

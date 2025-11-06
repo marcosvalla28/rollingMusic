@@ -2,9 +2,16 @@ import { useState } from 'react';
 import SearchBar from '../components/SearchBar';
 import Logo from '../assets/imagenes/logos/Logo.png';
 import Aside from '../components/Aside';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, logout } = useAuth();
+
+  // Imagen por defecto cuando no hay usuario
+  const defaultAvatar = 'https://cdn-icons-png.flaticon.com/512/10813/10813372.png';
+  const userAvatar = user?.photoURL || user?.avatar || defaultAvatar;
+  const userName = user?.displayName || user?.name || 'Usuario';
 
   return (
     <>
@@ -48,15 +55,31 @@ const Navbar = () => {
           <SearchBar /> 
         </div>
 
-        <div>
+        <div className="relative group">
           <button 
-            className="w-[50px] h-[50px] rounded-full bg-cover bg-no-repeat hover:shadow-[0_0_10px_#ffffff] transition-shadow"
-            style={{backgroundImage: 'url(https://cdn-icons-png.flaticon.com/512/10813/10813372.png)'}}
-            aria-label="Usuario"
+            className="w-[50px] h-[50px] rounded-full bg-cover bg-center bg-no-repeat hover:shadow-[0_0_10px_#ffffff] transition-shadow border-2 border-purple-500"
+            style={{backgroundImage: `url(${userAvatar})`}}
+            aria-label={userName}
+            title={userName}
           >
           </button>
-        </div>
-        
+
+
+
+          {user && (
+            <div className="hidden group-hover:block absolute right-0 mt-2 w-48 bg-linear-to-b from-purple-950 to-black rounded-lg shadow-xl border border-purple-500/30 z-50">
+              <div className="p-4 border-b border-purple-500/30">
+                <p className="text-white font-semibold truncate">{userName}</p>
+                <p className="text-gray-400 text-sm truncate">{user?.email}</p>
+              </div>
+              <button
+                onClick={logout}
+                className="w-full text-left px-4 py-2 text-white hover:bg-purple-900/30 transition-colors"
+              >
+                Cerrar sesión
+              </button>
+            </div>
+          )}
       </div>
 
       {/* Overlay y Menú móvil desplegable */}
