@@ -81,7 +81,10 @@ function About() {
   return (
     <>
 
-    <Navbar />
+    <div id="app2">
+      <header className="[grid-area:navbar] flex-col flex"> 
+            <Navbar/>
+    </header>
 
 
     <div
@@ -146,6 +149,10 @@ function About() {
         ))}
       </div>
     </div>
+
+    </div>
+
+    
     <Footer/>
     </>
   )

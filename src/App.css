@@ -10,6 +10,10 @@
     overflow: hidden;
 }
 
+#app2 {
+    color: white;
+}
+
 main {
     grid-area: main;
     overflow-y: auto;

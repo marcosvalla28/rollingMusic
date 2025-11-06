@@ -28,8 +28,6 @@ const AppRouter = () => {
                     <Route element={<ProtectedRoute requiredRole="user" />}>
                         <Route path="/" element={<Home />} />
                         <Route path="/nosotros" element={<About/>}/>
-                        <Route path="/artista" />
-                        <Route path="/album" />
                         <Route path="/playlist" />
                         <Route path="/songdetail" element={<SongDetail />} />
                     </Route>
@@ -39,8 +37,6 @@ const AppRouter = () => {
                         <Route path="/admin" element={<Admin />} />
                         <Route path="/nosotros" element={<About/>}/>
                         <Route path="/home" element={<Home />} />
-                        <Route path="/artista" />
-                        <Route path="/album" />
                         <Route path="/lista-de-reproduccion" element={<PlayList />} />
                         <Route path="/songdetail" element={<SongDetail />} />
 
