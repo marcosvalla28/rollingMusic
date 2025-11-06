@@ -1,7 +1,12 @@
 /* ESTAS IMPORTACIONES ME SIRVEN PARA TRAER IMAGENES Y COMPONENTES NECESARIOS PARA LA PÁGINA */
 import fondo from '../assets/imagenes/logos/fondo-nosotros.png'
 import logo from '../assets/imagenes/Img-miembros/logo-Rolling-Play.png';
-import marcos from '../assets/imagenes/Img-miembros/marcos.png'
+import marcos from '../assets/imagenes/Img-miembros/marcos.png';
+import juan from '../assets/imagenes/Img-miembros/juan.png';
+import moms from '../assets/imagenes/Img-miembros/moms.png';
+import lucas from '../assets/imagenes/Img-miembros/lucas.png';
+import franco from '../assets/imagenes/Img-miembros/franco.png';
+import luis from '../assets/imagenes/Img-miembros/luis.png';
 import EfectoLluvia from '../components/EfectoLluvia';
 import play from '../assets/imagenes/logos/logo-play.png';
 import vinilo from '../assets/imagenes/logos/vinilo.png';
@@ -9,6 +14,7 @@ import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import Footer from '../components/Footer';
 
 
 function About() {
@@ -31,50 +37,51 @@ function About() {
     {
       id: 2,
       nombre: 'Juan Garcia',
-      img: logo,
-      description: '',
+      img: juan,
+      description:'Desarrollador Full Stack apasionado por crear experiencias web completas. Siempre en busca de nuevos desafíos y tecnologías que me permitan crecer como profesional.',
       linkedin: 'https://www.linkedin.com/in/juangarcia14/',
-      github:'https://github.com/marcosvalla28'
+      github:'https://github.com/Juanmd14'
     },
     {
       id: 3,
       nombre: 'Franco Quinteros',
-      img: logo,
-      description: '',
+      img: franco,
+      description: 'Soy un amante de la tecnología y el desarrollo web. Estoy todo el tiempo conociendo cosas nuevas.',
       linkedin: 'https://www.linkedin.com/in/franco-quinteros-dev/',
       github:'https://github.com/FrancoDevBJ'
     },
     {
       id: 4,
       nombre: 'Eliana Ocampo',
-      img: logo,
-      description: '',
+      img: moms,
+      description: 'Somos nuestra memoria, somos ese quimérico museo de formas inconstantes, ese montón de espejos rotos.',
       linkedin: 'https://www.linkedin.com/in/romina-ocampo-42024b28b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
-      github:'https://github.com/marcosvalla28'
+      github:'https://github.com/MomsDeLaSelva'
     },
     {
       id: 5,
       nombre: 'Luis Santiago Sandoval',
-      img: logo,
+      img: luis,
       description: '',
-      linkedin: 'http://www.linkedin.com/in/luis-sandoval-47233b375',
-      github:'https://github.com/marcosvalla28'
+      linkedin: 'https://www.linkedin.com/in/luis-sandoval-47233b375/',
+      github:'https://github.com/LUISS005'
     },
     {
       id: 6,
       nombre: 'Lucas Teseira',
-      img: logo,
-      description: '',
-      linkedin: 'https://www.linkedin.com/in/marcos-adrian-valladares-65a043286/',
-      github:'https://github.com/marcosvalla28'
+      img: lucas,
+      description: 'Estoy aprendiendo desarrollo de software y me apasiona descubrir cómo transformar ideas en código. Cada día busco mejorar y aprender algo nuevo.',
+      linkedin: 'https://www.linkedin.com/in/lucas-benjamin-teseira-023338319/',
+      github:'https://github.com/teseira-lucas'
     }
   ]
 
 
 
   return (
+    <>
     <div
-    className="min-h-screen bg-cover bg-center bg-no-repeat relative flex flex-col items-center pt-20 pb-10"
+    className="min-h-screen bg-cover bg-center bg-no-repeat relative flex flex-col justify-between items-center pt-20 "
     style={{ backgroundImage: `url(${fondo})` }}>
 
       <EfectoLluvia/>
@@ -92,13 +99,14 @@ function About() {
         alt={miembroSeleccionado.nombre}
         className={`object-cover rounded-full drop-shadow-2xl w-80 sm:w-80 lg:w-[400px]
         ${miembroSeleccionado.id === 1 ? 'object-cover' : ''}`}
+        
         />
       </div>
       <div>
       
       <h2 className='text-5xl mb-8 font-mono text-center drop-shadow-black-9xl shrink-0 z-10'>{miembroSeleccionado.nombre}</h2>
       
-      <p className="text-gray-700 text-justify max-w-lg shrink-0 z-10 text-xl mt-8">{miembroSeleccionado.description}</p>
+      <p className="text-gray-700  text-center max-w-lg shrink-0 z-10 text-xl mt-8">{miembroSeleccionado.description}</p>
 
       <div className='justify-self-center'>
       {miembroSeleccionado.id !== 0 &&(
@@ -117,7 +125,7 @@ function About() {
       </div>
       </div>
 
-      <div className='flex justify-center mt-10 mb-10 relative'
+      <div className='flex mt-10 mb-10 relative flex-wrap lg:flex-nowrap'
       >
         {miembros.map((m, index) =>(
           <img
@@ -125,12 +133,14 @@ function About() {
         src={m.img} 
         alt={m.nombre}
         onClick={() => setMiembroSeleccionado(m)}
-        className={`w-40 h-60 object-contain cursor-pointer opacity-80 flex-wrap  hover:scale-125 transition-transform duration-300 hover:opacity-100 hover:z-50 relative
+        className={`brightness-50  hover:brightness-90 w-40 h-60 object-contain cursor-pointer mask-[linear-gradient(to_bottom,black_60%,transparent)] hover:mask-[linear-gradient(to_bottom,black_90%,transparent)] opacity-90 flex-wrap  hover:scale-125 transition-transform duration-300 hover:opacity-100 hover:z-50 relative
         ${index !== 0 ? '-ml-10' : ''}`}
         />
         ))}
       </div>
     </div>
+    <Footer/>
+    </>
   )
 }
 

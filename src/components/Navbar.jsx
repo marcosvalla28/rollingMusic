@@ -2,6 +2,8 @@ import SearchBar from '../components/SearchBar';
 import Logo from '../assets/imagenes/logos/Logo.png';
 import SongCard from '../components/SongCard'; 
 import './Navbar.css'
+import SongCard from './Canciones'; 
+
 
 const Navbar = () => {
 

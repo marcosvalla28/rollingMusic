@@ -1,48 +1,48 @@
 import React from 'react';
-import { useSongs } from '../context/SongsContext';
-
+import { useSongs } from '../context/SongsContext'; 
 
 function SongCard({ song }) { 
+    // Obtener la función de reproducción del contexto
     const { selectSong } = useSongs();
 
+    // Lógica de compatibilidad de propiedades: usar CRUD (titulo/url_imagen) o Deezer (title/album.cover_medium)
+    const titulo = song.titulo || song.title; 
+    const artista = song.artista || song.artist?.name; 
+    const url_imagen = song.url_imagen || song.album?.cover_medium; 
+    const codigo_unico = song.codigo_unico || song.id; 
+
     const handlePlay = () => {
-      selectSong(song);
-
-
+        // 🔑 FUNCIÓN CLAVE: Envía el objeto de la canción al SongsContext para reproducir
+        selectSong(song);
     }
     
-    const { 
-        titulo, 
-        artista, 
-        url_imagen, 
-        codigo_unico 
-    } = song; 
-
-    if (!titulo) {
-
-        return <div>Error al cargar datos de canción.</div>;
-    }
-
+    // Si la canción no tiene datos válidos, no se renderiza.
+    if (!titulo) return null;
 
     return (
-
-        <div id={`song-${codigo_unico}`} className="song-card group relative h-full bg-linear-to-br from-pink-500/15 via-purple-600/15 to-cyan-400/15 backdrop-blur-sm border-2 border-cyan-300/40 rounded-2xl p-6 hover:border-pink-500/80 transition-all duration-300 hover:shadow-2xl hover:shadow-pink-500/40 cursor-pointer overflow-hidden">
+        <div 
+            id={`song-${codigo_unico}`} 
+            // Usa los estilos que definieron tus compañeros para una tarjeta
+            className="shrink-0 w-44 bg-neutral-900 rounded-lg p-3 text-center text-white hover:scale-105 transition-transform duration-300 cursor-pointer"
+            onClick={handlePlay} // 👈 Conecta la reproducción al clic
+        >
+            {/* Lógica de imagen */}
+            {url_imagen ? (
+                <img 
+                    src={url_imagen} 
+                    alt={`Portada de ${titulo}`} 
+                    className="w-full h-44 object-cover rounded-md mb-2"
+                    onError={(e) => { e.target.onerror = null; e.target.src="https://via.placeholder.com/150"; }}
+                />
+            ) : (
+                <div className="bg-gray-700 border-2 border-gray-600 rounded-md w-full h-44 mb-2 flex items-center justify-center">
+                    <span className="text-gray-500 text-xs">Sin imagen</span>
+                </div>
+            )}
             
-            <img 
-                src={url_imagen} 
-                alt={`Portada de ${titulo}`} 
-                className="song-card-cover"
-                onError={(e) => { e.target.onerror = null; e.target.src="https://www.shutterstock.com/es/search/fallback"; }}
-            />
-            
-            <div className="song-card-info">
-
-                <h3>{titulo}</h3> 
-
-                <p>{artista}</p> 
-            </div>
-            
-            <button className="play-button" onClick={handlePlay}>Play</button>
+            {/* Título y Artista compatibles */}
+            <h4 className="text-lg font-semibold truncate">{titulo}</h4> 
+            <p className="text-sm text-gray-400 truncate">{artista}</p> 
         </div>
     );
 }
