@@ -57,19 +57,7 @@ const Home = () => {
                     </div>
                 )}
                 
-                {/* 📝 3. SECCIÓN ADICIONAL: LISTA DE REPRODUCCIÓN (CRUD) */}
-                <h2 className="text-3xl font-bold text-violet-400 mt-12 mb-6 border-b border-violet-700 pb-2">
-                    Lista de Reproducción Personal
-                </h2>
-                
-                {adminSongs.length === 0 ? (
-                    <div className="text-center py-10 text-gray-400 bg-neutral-900 p-6 rounded-lg">
-                        <p className="mb-2">Tu Lista de Reproducción está vacía.</p>
-                        <p>Agrega canciones desde la sección de Administración.</p>
-                    </div>
-                ) : (
-                    <Canciones songs={adminSongs} />
-                )}
+                
 
             </div>
         </div>

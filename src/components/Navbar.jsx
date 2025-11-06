@@ -18,6 +18,7 @@ const Navbar = () => {
       <div className="bg-linear-to-r from-[#120228] to-[#4b0082] flex flex-row w-full h-full items-center justify-around">
         
         <div className="flex items-center gap-4">
+          {/* botón hamburguesa para el modo mobile */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden text-white hover:bg-purple-900/30 rounded-lg p-2"
@@ -79,8 +80,6 @@ const Navbar = () => {
               </button>
             </div>
           )}
-        </div>
-        
       </div>
 
       {/* Overlay y Menú móvil desplegable */}
@@ -93,6 +92,7 @@ const Navbar = () => {
             className="bg-linear-to-b from-purple-950 to-black w-64 h-full p-4 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* botón para cerrar dentro del menu X */}
             <button
               onClick={() => setIsMobileMenuOpen(false)}
               className="text-white mb-6 ml-auto block hover:bg-purple-900/30 p-2 rounded-lg"
@@ -103,6 +103,7 @@ const Navbar = () => {
               </svg>
             </button>
             
+            {/* aside en mobile */}
             <Aside onItemClick={() => setIsMobileMenuOpen(false)} />
           </div>
         </div>

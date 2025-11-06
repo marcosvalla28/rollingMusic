@@ -17,13 +17,12 @@ export const registerSchema = z.object({
     path: ['confirmPassword']
 });
 
-// ----------------------------------------------------
-// SCHEMA CRÍTICO PARA EL CRUD DE CANCIONES
-// ----------------------------------------------------
+// SCHEMA PARA EL CRUD DE CANCIONES
+
 export const songSchema = z.object({
     titulo: z.string().min(3, 'El título es requerido y debe tener al menos 3 caracteres'),
     artista: z.string().min(3, 'El artista o grupo es requerido'),
-    categoria: z.string().min(3, 'La categoría (Álbum) es requerida'),
-    url_imagen: z.string().url('URL de Imagen inválida').min(1, 'La URL de imagen es requerida'),
-    url_cancion: z.string().url('URL de Canción inválida').min(1, 'La URL de canción es requerida'),
+    album: z.string().min(3, 'La categoría (Álbum) es requerida'),
+    duracion: z.string().min(1, 'La duración es requerida'),
+    imagenUrl: z.string().url('URL de Imagen inválida').min(1, 'La URL de imagen es requerida'),
 });

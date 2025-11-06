@@ -1,8 +1,11 @@
 import React from 'react';
 import { useSongs } from "../context/SongsContext"; 
+import { useNavigate } from 'react-router-dom';
 
-const Canciones = ({ songs }) => {     
+const Canciones = ({ songs}) => {     
   const { selectSong } = useSongs();
+  const navigate = useNavigate();
+
 
   if (!songs || songs.length === 0) {
     return null; 
@@ -15,7 +18,7 @@ const Canciones = ({ songs }) => {     
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 pb-2">
         
         {songs.map((item, index) => { 
-            const imageUrl = item.album?.cover_medium || item.cover_medium || item.coverUrl || 'https://via.placeholder.com/150'; 
+            const imageUrl = item.album?.cover_medium || item.cover_medium || item.imagenUrl || 'https://via.placeholder.com/150'; 
             const title = item.title || item.titulo || item.name || 'Título Desconocido';
             const artistName = item.artista || item.artist?.name || item.artist || 'Artista Desconocido';; 
             
@@ -25,7 +28,7 @@ const Canciones = ({ songs }) => {     
                 if(isPlayable) {
                     selectSong(item);
                 } else {
-                    console.log('Este elemento no tiene audio disponible para reproducir.');
+                    navigate('/notFound')
                 }
             };
 

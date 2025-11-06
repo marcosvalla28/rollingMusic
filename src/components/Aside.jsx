@@ -8,7 +8,7 @@ function Aside({ onItemClick }) {
         <SideMenuItem href="/artista" onClick={onItemClick}>Artista</SideMenuItem>
         <SideMenuItem href="/album" onClick={onItemClick}>Álbum</SideMenuItem>
         <SideMenuItem href="/nosotros" onClick={onItemClick}>Sobre Nosotros</SideMenuItem>
-        <SideMenuItem href="/playlist" onClick={onItemClick}>Lista de Reproducción</SideMenuItem>
+        <SideMenuItem href="/lista-de-reproduccion" onClick={onItemClick}>Lista de Reproducción</SideMenuItem>
       </ul>
     </nav>
   );
