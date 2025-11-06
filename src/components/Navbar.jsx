@@ -1,12 +1,30 @@
 import SearchBar from '../components/SearchBar';
-import SongCard from './Canciones'; 
+import Logo from '../assets/imagenes/logos/Logo.png';
+import SongCard from '../components/SongCard'; 
+import './Navbar.css'
+
+
 
 const Navbar = () => {
 
   return (
-    <div className="home-page w-full h-full flex flex-col items-center">
-      <SearchBar /> 
+    <div className="navbar">
+
+      <div>
+        <img className="logo" src={Logo} alt="logo"/>
       </div>
+
+      <div className='middle'>
+        <SearchBar /> 
+      </div>
+
+      <div className='btn-usuario'>
+        <button className='usuario'>
+          
+        </button>
+      </div>
+      
+    </div>
   );
 };
 
