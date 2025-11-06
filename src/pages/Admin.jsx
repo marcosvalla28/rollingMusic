@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 // Corrección de la ruta de importación: eliminamos la extensión '.jsx'
 import { useSongs } from '../context/SongsContext'; 
-import Canciones from '../components/Canciones.jsx'; 
+import {songSchema} from '../utils/validation';
+
 
 const initialFormState = {
-    title: '',
-    artist: '',
+    titulo: '',
+    artista: '',
     album: '',
-    duration: '3:00',
-    coverUrl: 'https://placehold.co/100x100/38bdf8/white?text=COVER',
+    duracion: '0:00',
+    imagenUrl: '',
 };
 
 const Admin = () => {
@@ -19,30 +20,42 @@ const Admin = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [editingId, setEditingId] = useState(null);
     const [message, setMessage] = useState('');
+    const [errors, setErrors] = useState({});
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
+        setErrors(prev => ({ ...prev, [name]: null }));
+        setMessage('');
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setMessage('');
+        setErrors('');
 
         // Validación básica
-        if (!formData.title || !formData.artist) {
-            setMessage('El título y el artista son obligatorios.');
+        const result = songSchema.safeParse(formData);
+
+        if (!result.success){
+            const fieldErrors = result.error.issues.reduce((acc, issue) => {
+                acc[issue.path[0]] = issue.message;
+                return acc;
+            }, {});
+            setErrors(fieldErrors);
             return;
         }
 
+        setErrors({});
+        
         if (isEditing && editingId) {
             // Lógica de Edición
             updateSong(editingId, formData);
-            setMessage(`Canción "${formData.title}" actualizada con éxito.`);
+            setMessage(`Canción "${formData.titulo}" actualizada con éxito.`);
         } else {
             // Lógica de Adición
             addSong(formData);
-            setMessage(`Canción "${formData.title}" agregada con éxito a la lista.`);
+            setMessage(`Canción "${formData.titulo}" agregada con éxito a la lista.`);
         }
 
         // Limpiar formulario y estado
@@ -57,11 +70,11 @@ const Admin = () => {
     const handleEditClick = (song) => {
         // Carga los datos de la canción en el formulario para editar
         setFormData({ 
-            title: song.title || '',
-            artist: song.artist || '',
+            titulo: song.titulo || '',
+            artista: song.artista || '',
             album: song.album || '',
-            duration: song.duration || '3:00',
-            coverUrl: song.coverUrl || initialFormState.coverUrl,
+            duracion: song.duracion || '0:00',
+            imagenUrl: song.imagenUrl || initialFormState.imagenUrl,
         });
         setIsEditing(true);
         setEditingId(song.codigo_unico);
@@ -79,7 +92,7 @@ const Admin = () => {
     const buttonStyle = "w-full py-3 mt-4 text-white font-semibold rounded-lg transition duration-200";
 
     return (
-        <div className="p-4 md:p-8 bg-black min-h-screen text-white">
+        <div style={{background:`url(https://wallpapers.com/images/featured/fondos-de-zoom-negros-wpsajp1p1h3jwr1v.jpg)`}} className="p-4 md:p-8 bg-black min-h-screen text-white">
             <h1 className="text-4xl font-bold text-violet-400 mb-8 border-b border-violet-700 pb-3">
                 Panel de Administración de la Lista de Reproducción
             </h1>
@@ -99,23 +112,28 @@ const Admin = () => {
                 <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="md:col-span-1">
                         <label className="block text-sm font-medium mb-1 text-gray-400">Título</label>
-                        <input type="text" name="title" value={formData.title} onChange={handleChange} className={inputStyle} required />
+                        <input type="text" name="titulo" value={formData.titulo} onChange={handleChange} className={`${inputStyle} ${errors.titulo ? 'border-red-500' : 'border-neutral-600'}`} />
+                        {errors.titulo && <p className="mt-1 text-sm text-red-400">{errors.titulo}</p>}
                     </div>
                     <div className="md:col-span-1">
                         <label className="block text-sm font-medium mb-1 text-gray-400">Artista</label>
-                        <input type="text" name="artist" value={formData.artist} onChange={handleChange} className={inputStyle} required />
+                        <input type="text" name="artista" value={formData.artista} onChange={handleChange} className={`${inputStyle} ${errors.artista ? 'border-red-500' : 'border-neutral-600'}`} />
+                        {errors.artista && <p className="mt-1 text-sm text-red-400">{errors.artista}</p>}
                     </div>
                     <div className="md:col-span-1">
                         <label className="block text-sm font-medium mb-1 text-gray-400">Álbum</label>
-                        <input type="text" name="album" value={formData.album} onChange={handleChange} className={inputStyle} />
+                        <input type="text" name="album" value={formData.album} onChange={handleChange} className={`${inputStyle} ${errors.album ? 'border-red-500' : 'border-neutral-600'}`} />
+                        {errors.album && <p className="mt-1 text-sm text-red-400">{errors.album}</p>}
                     </div>
                     <div className="md:col-span-1">
                         <label className="block text-sm font-medium mb-1 text-gray-400">Duración</label>
-                        <input type="text" name="duration" value={formData.duration} onChange={handleChange} className={inputStyle} />
+                        <input type="text" name="duracion" value={formData.duracion} onChange={handleChange} className={`${inputStyle} ${errors.duracion ? 'border-red-500' : 'border-neutral-600'}`} />
+                        {errors.duracion && <p className="mt-1 text-sm text-red-400">{errors.duracion}</p>}
                     </div>
                     <div className="md:col-span-2">
                         <label className="block text-sm font-medium mb-1 text-gray-400">URL de la Carátula</label>
-                        <input type="url" name="coverUrl" value={formData.coverUrl} onChange={handleChange} className={inputStyle} />
+                        <input type="url" name="imagenUrl" value={formData.imagenUrl} onChange={handleChange} className={`${inputStyle} ${errors.imagenUrl ? 'border-red-500' : 'border-neutral-600'}`} />
+                        {errors.imagenUrl && <p className="mt-1 text-sm text-red-400">{errors.imagenUrl}</p>}
                     </div>
                     
                     <div className="md:col-span-2 flex space-x-4">
@@ -153,16 +171,16 @@ const Admin = () => {
                     {adminSongs.map((song) => (
                         <div key={song.codigo_unico} className="flex items-center bg-neutral-800 p-4 rounded-lg shadow-md hover:bg-neutral-700 transition">
                             <img 
-                                src={song.coverUrl || initialFormState.coverUrl} 
-                                alt={`Carátula de ${song.title}`} 
+                                src={song.imagenUrl || initialFormState.imagenUrl} 
+                                alt={`Carátula de ${song.titulo}`} 
                                 className="w-12 h-12 object-cover rounded-md mr-4"
-                                onError={(e) => { e.target.onerror = null; e.target.src = initialFormState.coverUrl; }} // Fallback en caso de error de URL
+                                onError={(e) => { e.target.onerror = null; e.target.src = initialFormState.imagenUrl; }} // Fallback en caso de error de URL
                             />
-                            <div className="flex-grow">
-                                <p className="font-semibold text-lg text-white">{song.title}</p>
-                                <p className="text-sm text-gray-400">{song.artist} • {song.album}</p>
+                            <div className="grow">
+                                <p className="font-semibold text-lg text-white">{song.titulo}</p>
+                                <p className="text-sm text-gray-400">{song.artista} • {song.album}</p>
                             </div>
-                            <div className="text-gray-400 text-sm mr-6 hidden sm:block">{song.duration}</div>
+                            <div className="text-gray-400 text-sm mr-6 hidden sm:block">{song.duracion}</div>
                             
                             {/* Botones de acción */}
                             <button 

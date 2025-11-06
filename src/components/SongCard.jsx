@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSongs } from '../context/SongsContext'; 
+import { useSongs } from '../context/SongsContext';
 
 function SongCard({ song }) { 
     // Obtener la función de reproducción del contexto
@@ -8,12 +8,14 @@ function SongCard({ song }) {
     // Lógica de compatibilidad de propiedades: usar CRUD (titulo/url_imagen) o Deezer (title/album.cover_medium)
     const titulo = song.titulo || song.title; 
     const artista = song.artista || song.artist?.name; 
-    const url_imagen = song.url_imagen || song.album?.cover_medium; 
+    const url_imagen = song.imagenUrl || song.album?.cover_medium; 
     const codigo_unico = song.codigo_unico || song.id; 
 
     const handlePlay = () => {
         // 🔑 FUNCIÓN CLAVE: Envía el objeto de la canción al SongsContext para reproducir
         selectSong(song);
+        
+
     }
     
     // Si la canción no tiene datos válidos, no se renderiza.

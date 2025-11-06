@@ -17,7 +17,7 @@ export default function Player() {
   // 🛠️ CORRECCIÓN 2: Definir metadatos compatibles
   const displayTitle = currentSong?.titulo || currentSong?.title;
   const displayArtist = currentSong?.artista || currentSong?.artist?.name;
-  const displayImage = currentSong?.url_imagen || currentSong?.album?.cover_medium;
+  const displayImage = currentSong?.url_imagen || currentSong?.album?.cover_medium || currentSong?.imagenUrl;
 
 
   // Inicializar WaveSurfer (sin cambios, ya que está correcto)

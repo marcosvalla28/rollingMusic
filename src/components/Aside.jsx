@@ -8,7 +8,7 @@ function Aside() {
         <SideMenuItem href="/artista">Artista</SideMenuItem>
         <SideMenuItem href="/album">Álbum</SideMenuItem>
         <SideMenuItem href="/nosotros">Sobre Nosotros</SideMenuItem>
-        <SideMenuItem href="/playlist">Lista de Reproducción</SideMenuItem>
+        <SideMenuItem href="/lista-de-reproduccion">Lista de Reproducción</SideMenuItem>
       </ul>
     </nav>
   );
