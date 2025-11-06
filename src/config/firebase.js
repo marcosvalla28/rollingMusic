@@ -1,26 +1,23 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {getAuth, GoogleAuthProvider} from 'firebase/auth';
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+// Configuración de Firebase usando variables del .env
 const firebaseConfig = {
-  apiKey: "AIzaSyDgs5wjGh1iwPYjukWMFRsa8TkQl5UTWQc",
-  authDomain: "rollingmusic-9096e.firebaseapp.com",
-  projectId: "rollingmusic-9096e",
-  storageBucket: "rollingmusic-9096e.firebasestorage.app",
-  messagingSenderId: "868032147725",
-  appId: "1:868032147725:web:cca67277cab9486cbfc044",
-  measurementId: "G-HE5XJ9LVET"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
+// Inicializar Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
 const analytics = getAnalytics(app);
 
-export {auth, googleProvider, analytics};
+export { auth, googleProvider, analytics };

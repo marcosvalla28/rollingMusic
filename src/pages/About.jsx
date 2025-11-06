@@ -47,7 +47,7 @@ function About() {
       id: 3,
       nombre: 'Franco Quinteros',
       img: franco,
-      description: 'Soy un amante de la tecnología y el desarrollo web. Estoy todo el tiempo conociendo cosas nuevas.',
+      description: 'Soy un amante de la tecnología y el desarrollo web. Me gusta todo el tiempo aprender cosas nuevas.',
       linkedin: 'https://www.linkedin.com/in/franco-quinteros-dev/',
       github:'https://github.com/FrancoDevBJ'
     },

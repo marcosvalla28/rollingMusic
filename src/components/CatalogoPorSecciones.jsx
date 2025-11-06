@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useSongs } from "../context/SongsContext"; 
 // Importamos las nuevas funciones de la API que definimos en musicApi.js
 import { getTopTracks, getMostListened, getNewReleases, getGlobalTop } from '../services/musicApi'; 
+import { useNavigate } from 'react-router-dom';
 
 const CatalogoPorSecciones = () => {     
   const { selectSong } = useSongs(); // Usado para reproducir la canción
+  const navigate = useNavigate();
 
   // 1. Estado para gestionar las secciones, usando las funciones de la API como 'fetcher'
   const [secciones, setSecciones] = useState([
@@ -72,7 +74,7 @@ const CatalogoPorSecciones = () => {     
                     if(isPlayable) {
                         selectSong(item);
                     } else {
-                        console.log('Este elemento no tiene preview de audio disponible para reproducir.');
+                        navigate('/notFound');
                     }
                 };
 
