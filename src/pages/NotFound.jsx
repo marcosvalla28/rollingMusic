@@ -1,11 +1,21 @@
 import React from 'react'
 import "../assets/styles/NotFound.css";
-import EfectoLluvia from '../components/EfectoLluvia';
+import Swal from 'sweetalert2';
 
 function NotFound() {
   const handleClick = () => {
-    alert("Redireccionando a la pagina principal");
-    window.location.href = "/";
+    Swal.fire({
+      title: "Quiere volver a Inicio?",
+      text: "La página que buscas no existe.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Sí, volver al inicio",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "/";
+      }
+    });
   };
 
   return (
