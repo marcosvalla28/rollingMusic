@@ -82,7 +82,7 @@ function About() {
     <>
 
     <div id="app2">
-      <header className="[grid-area:navbar] flex-col flex"> 
+      <header className="[grid-area:navbar] flex-col flex h-24"> 
             <Navbar/>
     </header>
 
