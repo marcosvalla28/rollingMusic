@@ -6,6 +6,7 @@ import Navbar from '../components/Navbar.jsx';
 import Aside from '../components/Aside.jsx';
 import Player from '../components/Player.jsx';
 import Footer from '../components/Footer.jsx';
+import Fondo from '../assets/imagenes/logos/FondoLogo.jpg';
 
 const Home = () => {
     const { 
@@ -33,7 +34,8 @@ const Home = () => {
         </aside>
 
         <main className="[grid-area:main] overflow-y-auto p-4 md:p-8">
-        <div className="flex flex-col bg-black min-h-screen text-white">
+        <div className="flex flex-col min-h-screen text-white" style={{background: `url(${Fondo})
+        no-repeat center center / cover fixed`}}>
         {/* El padding lateral (p-4 md:p-8) aplica espaciado a todos los elementos del contenido */}
         <div className="p-4 md:p-8 grow">
             
@@ -66,7 +68,7 @@ const Home = () => {
         </div>
                     <Footer/>
         </main>
-        <footer className="[grid-area:player] w-full h-full bg-gradient-to-b from-purple-950/40">
+        <footer className="[grid-area:player] w-full h-full bg-linear-to-b from-purple-950/40">
             <Player/> {/* El reproductor en su área Grid */}
         </footer>
     </div>

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerSchema } from '../utils/validation';
 import { useAuth } from '../context/AuthContext'; // Importa el hook de Auth
-import Fondo from '../assets/imagenes/logos/FondoLogo.jpg'
+import Fondo from '../assets/imagenes/logos/FondoLogo.jpg';
+import logo from '../assets/imagenes/logos/Logo.png';
 
 const initialFormState = { username: '', email: '', password: '', confirmPassword: '' };
 
@@ -92,12 +93,13 @@ const RegisterForm = () => {
                     
                     <div className="relative z-10 flex flex-col items-center">
                         {/* Círculo del Logo "RP" */}
-                        <div className="w-48 h-48 rounded-full border-4 border-violet-500 flex items-center justify-center mb-6">
-                            <span className="text-8xl font-bold text-violet-400">LOGO</span>
+                        <div className="w-80 h-80 rounded-full  border-violet-500 flex items-center justify-center mb-6">
+                            <span className="text-8xl font-bold text-violet-400"><img src={logo} alt="logo" /></span>
                         </div>
-                        <p className="text-xl font-light text-gray-200">
+                        <p className="text-2xl font-serif italic text-gray-200 ">
                             Únete hoy y lleva tu música a todas partes.
                         </p>
+                        
                     </div>
                 </div>
 
