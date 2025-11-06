@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import Footer from '../components/Footer';
+import Navbar from '../components/Navbar';
 
 
 function About() {
@@ -80,39 +81,41 @@ function About() {
 
   return (
     <>
+
+    <Navbar />
+
+
     <div
-    className="min-h-screen bg-cover bg-center bg-no-repeat relative flex flex-col justify-between items-center pt-20 "
+    className="min-h-screen bg-cover bg-center bg-no-repeat relative flex flex-col justify-between items-center pt-20 px-4 md:px-10"
     style={{ backgroundImage: `url(${fondo})` }}>
 
       <EfectoLluvia/>
 
-
-      <h1 className="text-center">SOBRE NOSOTROS</h1>
       
-      <div className="border-2 border-violet-400 rounded-xl m-30 p-6 min-h-100 bg-violet-300/70 flex flex-col md:flex-row items-center justify-center gap-10 z-10">
+      <div className="border-2 border-violet-400 rounded-xl m-8 p-6 min-h-[400px] bg-violet-300/70 flex flex-col md:flex-row items-center justify-center gap-10 z-10 w-full max-w-6xl">
 
-      <div className='w-[400px] h-[400px] justify-items-center content-center shrink-0 z-10 overflow-hidden rounded-full bg-cover bg-center bg-no-repeat shadow-2xl'
+      <div className='w-48 h-48 sm:w-64 sm:h-64 lg:w-[400px] lg:h-[400px] justify-items-center content-center shrink-0 z-10 overflow-hidden rounded-full bg-cover bg-center bg-no-repeat shadow-2xl'
       style={{ backgroundImage: miembroSeleccionado.id !== 0 ? `url(${vinilo})` : "none"}}
       >
         <img 
         src={miembroSeleccionado.img} 
         alt={miembroSeleccionado.nombre}
-        className={`object-cover rounded-full drop-shadow-2xl w-80 sm:w-80 lg:w-[400px]
+        className={`object-cover rounded-full drop-shadow-2xl w-48 sm:w-64 lg:w-[400px]
         ${miembroSeleccionado.id === 1 ? 'object-cover' : ''}`}
         
         />
       </div>
       <div>
       
-      <h2 className='text-5xl mb-8 font-mono text-center drop-shadow-black-9xl shrink-0 z-10'>{miembroSeleccionado.nombre}</h2>
+      <h2 className='text-2xl sm:text-4xl lg:text-5xl mb-8 font-mono text-center drop-shadow-black-9xl shrink-0 z-10'>{miembroSeleccionado.nombre}</h2>
       
-      <p className="text-gray-700  text-center max-w-lg shrink-0 z-10 text-xl mt-8">{miembroSeleccionado.description}</p>
+      <p className=" text-gray-700 text-center max-w-lg text-base sm:text-lg lg:text-xl mt-8">{miembroSeleccionado.description}</p>
 
       <div className='justify-self-center'>
       {miembroSeleccionado.id !== 0 &&(
         <button 
         onClick={() => window.open(miembroSeleccionado.linkedin, '_blank', 'noopener,noreferrer')}
-        className='px-2 py-2 mt-7 bg-violet-700 cursor-pointer hover:cursor-pointer text-white font-semibold rounded-lg shadow-md  hover:bg-blue-500 hover:scale-105 active:scale-95 transition-all duration-300 z-999'
+        className='flex justify-center flex-wrap gap-5 px-2 py-2 mt-7 bg-violet-700 cursor-pointer hover:cursor-pointer text-white font-semibold rounded-lg shadow-md  hover:bg-blue-500 hover:scale-105 active:scale-95 transition-all duration-300 z-999'
         ><FontAwesomeIcon icon={faLinkedin} size='2x'/></button>
       )}
       {miembroSeleccionado.id !== 0 &&(
@@ -125,7 +128,7 @@ function About() {
       </div>
       </div>
 
-      <div className='flex mt-10 mb-10 relative flex-wrap lg:flex-nowrap'
+      <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:flex mt-10 mb-10 relative gap-4 justify-center'
       >
         {miembros.map((m, index) =>(
           <img
@@ -133,7 +136,12 @@ function About() {
         src={m.img} 
         alt={m.nombre}
         onClick={() => setMiembroSeleccionado(m)}
-        className={`brightness-50  hover:brightness-90 w-40 h-60 object-contain cursor-pointer mask-[linear-gradient(to_bottom,black_60%,transparent)] hover:mask-[linear-gradient(to_bottom,black_90%,transparent)] opacity-90 flex-wrap  hover:scale-125 transition-transform duration-300 hover:opacity-100 hover:z-50 relative
+        className={`brightness-50 hover:brightness-90
+        w-full h-56 sm:h-60 object-contain cursor-pointer
+        mask-[linear-gradient(to_bottom,black_60%,transparent)]
+        hover:mask-[linear-gradient(to_bottom,black_90%,transparent)]
+        opacity-90 hover:scale-110 transition-transform duration-300
+        hover:opacity-100 hover:z-50 relative
         ${index !== 0 ? '-ml-10' : ''}`}
         />
         ))}
