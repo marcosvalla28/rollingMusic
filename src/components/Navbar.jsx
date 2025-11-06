@@ -1,13 +1,11 @@
-import SearchBar from '../components/SearchBar';
-import SongCard from './Canciones'; 
+import React from 'react'
 
-const Navbar = () => {
-
+function Navbar() {
   return (
-    <div className="home-page w-full h-full flex flex-col items-center">
-      <SearchBar /> 
-      </div>
-  );
-};
+    <div>
+      
+    </div>
+  )
+}
 
-export default Navbar;
+export default Navbar
