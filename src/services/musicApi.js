@@ -11,7 +11,6 @@ const normalizeSong = (deezerTrack) => ({
     // ESTRUCTURA DE ARTISTA CORREGIDA Y SIMPLIFICADA
     artist: {
         id: deezerTrack.artist?.id,
-        // ✅ Nos aseguramos de leer el nombre del artista
         name: deezerTrack.artist?.name || 'Artista Desconocido', 
     },
     
