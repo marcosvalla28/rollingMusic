@@ -1,10 +1,22 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './App.jsx'
+import AppRouter from './routes/AppRouter';
+import { SongsProvider } from './context/SongsContext'; 
+import { AuthProvider } from './context/AuthContext';
+import './app.css';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
-  </StrictMode>,
+            {/* 2. AuthProvider: Proporciona la lógica de autenticación (login/registro/usuario) */}
+      <AuthProvider>
+        {/* 3. SongsProvider: Proporciona el estado global de canciones, búsqueda y reproducción. */}
+        <SongsProvider>
+          
+          {/* 4. AppRouter: Contiene el diseño (Layout Grid) y todas las rutas (Home, Admin, etc.) */}
+          <AppRouter />
+          
+        </SongsProvider>
+      </AuthProvider>
+    </StrictMode>,
 )
