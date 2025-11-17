@@ -34,8 +34,7 @@ const Home = () => {
         </aside>
 
         <main className="[grid-area:main] overflow-y-auto p-4 md:p-8">
-        <div className="flex flex-col min-h-screen text-white" style={{background: `url(${Fondo})
-        no-repeat center center / cover fixed`}}>
+        <div className="flex flex-col min-h-screen text-white" >
         {/* El padding lateral (p-4 md:p-8) aplica espaciado a todos los elementos del contenido */}
         <div className="p-4 md:p-8 grow">
             
