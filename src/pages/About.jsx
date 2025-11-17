@@ -1,9 +1,9 @@
 /* ESTAS IMPORTACIONES ME SIRVEN PARA TRAER IMAGENES Y COMPONENTES NECESARIOS PARA LA PÁGINA */
 import fondo from '../assets/imagenes/logos/fondo-nosotros.png'
 import marcos from '../assets/imagenes/Img-miembros/marcos.png';
-import juan from '../assets/imagenes/Img-miembros/juan.png';
-import moms from '../assets/imagenes/Img-miembros/moms.png';
-import lucas from '../assets/imagenes/Img-miembros/lucas.png';
+import juan from '../assets/imagenes/Img-miembros/Juan.png';
+import moms from '../assets/imagenes/Img-miembros/Moms.png';
+import lucas from '../assets/imagenes/Img-miembros/Lucas.png';
 import franco from '../assets/imagenes/Img-miembros/franco.png';
 import luis from '../assets/imagenes/Img-miembros/luis.png';
 import EfectoLluvia from '../components/EfectoLluvia';
