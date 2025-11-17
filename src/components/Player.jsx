@@ -83,7 +83,7 @@ export default function Player() {
 
 
   return (
-<div className="w-full h-full flex flex-col items-center justify-center gap-4 p-2 bg-gradient-to-l from-purple-950/40 to-black/40 text-white">
+<div className="w-full h-full flex flex-col items-center justify-center gap-4 p-2 bg-linear-to-l from-purple-950/40 to-black/40 text-white">
       {/* Contenedor de ondas */}
       <div
         ref={containerRef}
