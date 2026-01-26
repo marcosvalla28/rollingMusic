@@ -7,6 +7,7 @@ import {
     createUserWithEmailAndPassword, 
     updateProfile 
 } from 'firebase/auth'; 
+import Swal from 'sweetalert2';
 
 const AuthContext = createContext();
 
@@ -65,21 +66,44 @@ export const AuthProvider = ({ children }) => {
     
     // 3. REGISTRO CON EMAIL/PASSWORD
     const registerWithEmail = async (email, password, displayName) => {
-        try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            const firebaseUser = userCredential.user;
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const firebaseUser = userCredential.user;
 
-            // 1. Establecer el nombre de usuario (displayName)
-            await updateProfile(firebaseUser, { displayName });
-            
-            // 2. Asignar el rol por defecto ('user') y guardar el estado
-            return handleAuthSuccess(firebaseUser, 'user', displayName);
+    // 1. Establecer el nombre de usuario
+    await updateProfile(firebaseUser, { displayName });
 
-        } catch (error) {
-            console.error('Error en el Registro con Email:', error);
-            throw error;
-        }
-    };
+    // Mostramos la alerta estética
+    await Swal.fire({
+      title: '¡Bienvenido a RollingMusic!',
+      text: 'Tu cuenta ha sido creada con éxito.',
+      icon: 'success',
+      confirmButtonColor: '#1DB954',
+      timer: 3000, // Se cierra solo en 3 segundos si no tocan nada
+      timerProgressBar: true
+    });
+
+    // 2. Asignar rol y guardar estado
+    return handleAuthSuccess(firebaseUser, 'user', displayName);
+
+  } catch (error) {
+    let message = "No se pudo completar el registro.";
+    
+    // Mapeo profesional de errores
+    if (error.code === 'auth/email-already-in-use') {
+      message = "Este correo electrónico ya está en uso. Intenta con otro o inicia sesión.";
+    } else if (error.code === 'auth/weak-password') {
+      message = "La contraseña es muy débil. Debe tener al menos 6 caracteres.";
+    } else if (error.code === 'auth/invalid-email') {
+      message = "El formato del correo no es válido.";
+    } else if (error.code === 'auth/operation-not-allowed') {
+      message = "El registro con email no está habilitado en la consola de Firebase.";
+    }
+
+    // Seguimos lanzando el error por si el componente necesita manejar algo más
+    throw error;
+  }
+};
 
 
     const logout = async () => {
