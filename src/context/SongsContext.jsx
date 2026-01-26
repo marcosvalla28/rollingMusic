@@ -111,12 +111,18 @@ export const SongsProvider = ({ children }) => {
     };
 
     const selectSong = (song) => setCurrentSong(song);
+
+    const clearSearch = () => {
+    setSearchTerm('');
+    loadInitialSongs(); // Recarga el catálogo inicial (Top Tracks)
+    };
     
     const value = {
         songs: songs, 
         isLoading,
         error,
         handleSearch,
+        clearSearch,
         searchTerm, 
         currentSong,
         setCurrentSong, 

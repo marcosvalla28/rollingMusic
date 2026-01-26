@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSongs } from '../context/SongsContext'; 
 import Canciones from '../components/Canciones.jsx'; 
 import CatalogoPorSecciones from '../components/CatalogoPorSecciones.jsx'; 
@@ -6,13 +5,13 @@ import Navbar from '../components/Navbar.jsx';
 import Aside from '../components/Aside.jsx';
 import Player from '../components/Player.jsx';
 import Footer from '../components/Footer.jsx';
-import Fondo from '../assets/imagenes/logos/FondoLogo.jpg';
 
-const Home = () => {
+const Search = () => {
     const { 
         songs,           // Catálogo de la API / Resultados de Búsqueda
         isLoading,
-        error,   
+        error,
+        searchTerm,     
     } = useSongs();
 
     if (error) {
@@ -24,20 +23,24 @@ const Home = () => {
             <header className="[grid-area:navbar] flex-col flex"><Navbar/></header>
             <aside className="flex-col flex overflow-y-auto"><Aside /></aside>
             <main className="[grid-area:main] overflow-y-auto p-4 md:p-8">
-                <div className="p-4 md:p-8 grow">
+                <div key={searchTerm} className="animate-fade-in p-4 md:p-8 grow">
                     <h2 className="text-3xl font-bold text-violet-400 mb-6 border-b border-violet-700 pb-2">
-                        Catálogo Musical
+                        {searchTerm ? `Resultados para "${searchTerm}"` : "Explorar música"}
                     </h2>
-                    {isLoading ? <p>Cargando...</p> : <Canciones songs={songs} />}
-                    <div className="mt-12 pt-6 border-t border-neutral-800">
-                        <CatalogoPorSecciones />
-                    </div>
+                    
+                    {isLoading && <p className="text-center py-10 animate-pulse"></p>}
+                    
+                    {!isLoading && songs.length === 0 && searchTerm && (
+                        <p className="text-center py-10 text-gray-400">No encontramos nada para "{searchTerm}"</p>
+                    )}
+                    
+                    {!isLoading && songs.length > 0 && <Canciones songs={songs} />}
                 </div>
                 <Footer/>
             </main>
             <footer className="[grid-area:player] w-full bg-linear-to-b from-purple-950/40"><Player/></footer>
         </div>
     );
-};
+}
 
-export default Home;
+export default Search;
