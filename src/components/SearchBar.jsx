@@ -24,11 +24,11 @@ const SearchBar = () => {
   const handleClearAction = () => {
     setInputValue('');
     clearSearch();
-    navigate('/'); // Al limpiar, volvemos al Home automáticamente
+    navigateSearch('/'); // Al limpiar, volvemos al Home automáticamente
   };
 
   return (
-    <form onSubmit={processSearch} className="flex items-center gap-2">
+    <form onSubmit={processSearch} className="flex items-center gap-2" role='search' >
       <div className="relative flex items-center">
         <input 
           className="rounded-2xl bg-purple-900/30 w-[200px] md:w-[300px] lg:w-[500px] h-[35px] px-4 pr-10

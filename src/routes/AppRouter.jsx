@@ -29,9 +29,9 @@ const AppRouter = () => {
                     <Route element={<ProtectedRoute requiredRole="user" />}>
                         <Route path="/" element={<Home />} />
                         <Route path="/nosotros" element={<About/>}/>
-                        <Route path="/playlist" />
                         <Route path="/songdetail" element={<SongDetail />} />
                         <Route path="/search" element={<Search />} />
+                        <Route path="/lista-de-reproduccion" element={<PlayList />} />
                     </Route>
 
                     {/* RUTAS DE ADMINISTRADOR (Requieren Rol 'admin') */}

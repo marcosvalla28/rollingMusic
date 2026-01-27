@@ -23,12 +23,12 @@ const Home = () => {
         <div id="app" className="grid w-full h-screen bg-black text-white m-0 p-0">
             <header className="[grid-area:navbar] flex-col flex"><Navbar/></header>
             <aside className="flex-col flex overflow-y-auto"><Aside /></aside>
-            <main className="[grid-area:main] overflow-y-auto p-4 md:p-8">
-                <div className="p-4 md:p-8 grow">
+            <main className="[grid-area:main] overflow-y-auto w-full bg-black">
+                <div className="animate-fade-in p-4 md:p-6 w-full">
                     <h2 className="text-3xl font-bold text-violet-400 mb-6 border-b border-violet-700 pb-2">
                         Catálogo Musical
                     </h2>
-                    {isLoading ? <p>Cargando...</p> : <Canciones songs={songs} />}
+                    {isLoading ? <p className="text-center py-10 animate-pulse">Cargando...</p> : <Canciones songs={songs} />}
                     <div className="mt-12 pt-6 border-t border-neutral-800">
                         <CatalogoPorSecciones />
                     </div>
