@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSongs } from '../context/SongsContext'; 
 import Canciones from '../components/Canciones.jsx'; 
 import CatalogoPorSecciones from '../components/CatalogoPorSecciones.jsx'; 
@@ -9,6 +9,7 @@ import Footer from '../components/Footer.jsx';
 import Fondo from '../assets/imagenes/logos/FondoLogo.jpg';
 
 const Home = () => {
+    const [isOpen, setIsOpen] = useState(true);
     const { 
         songs,           // Catálogo de la API / Resultados de Búsqueda
         isLoading,
@@ -20,10 +21,10 @@ const Home = () => {
     }
 
     return (
-        <div id="app" className="grid w-full h-screen bg-black text-white m-0 p-0">
-            <header className="[grid-area:navbar] flex-col flex"><Navbar/></header>
-            <aside className="flex-col flex overflow-y-auto"><Aside /></aside>
-            <main className="[grid-area:main] overflow-y-auto w-full bg-black">
+        <div id="app" className="grid w-full h-screen bg-black text-white m-0 p-0 transition-all duration-300">
+            <header className="[grid-area:navbar] flex-col flex"><Navbar toggleSidebar={() => setIsOpen(!isOpen)}/></header>
+            <aside className={`flex-col flex overflow-y-auto ${isOpen ? 'w-64 opacity-100' : 'w-0 opacity-0 -translate-x-full'}`}><Aside /></aside>
+            <main className="[grid-area:main] overflow-y-auto w-full">
                 <div className="animate-fade-in p-4 md:p-6 w-full">
                     <h2 className="text-3xl font-bold text-violet-400 mb-6 border-b border-violet-700 pb-2">
                         Catálogo Musical

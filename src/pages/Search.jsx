@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { useSongs } from '../context/SongsContext'; 
 import Canciones from '../components/Canciones.jsx'; 
 import CatalogoPorSecciones from '../components/CatalogoPorSecciones.jsx'; 
@@ -26,6 +27,7 @@ const GENRES = [
 ];
 
 const Search = () => {
+    const [isOpen, setIsOpen] = useState(true);
     const { 
         handleSearch,
         songs,           // Catálogo de la API / Resultados de Búsqueda
@@ -39,9 +41,9 @@ const Search = () => {
     }
 
     return (
-        <div id="app" className="grid w-full h-screen bg-black text-white m-0 p-0">
-            <header className="[grid-area:navbar] flex-col flex"><Navbar/></header>
-            <aside className="flex-col flex overflow-y-auto"><Aside /></aside>
+        <div id="app" className="grid w-full h-screen bg-black text-white m-0 p-0 transition-all duration-300">
+            <header className="[grid-area:navbar] flex-col flex"><Navbar toggleSidebar={() => setIsOpen(!isOpen)}/></header>
+            <aside className={`flex-col flex overflow-y-auto ${isOpen ? 'w-64 opacity-100' : 'w-0 opacity-0 -translate-x-full'}`}><Aside /></aside>
             <main className="[grid-area:main] overflow-y-auto w-full">
                 <div className='animate-fade-in px-4 md:px-6 py-4 grow w-full'>
                     <h2 className="text-3xl font-bold text-violet-400 mb-6 border-b border-violet-700 pb-2">Música por género</h2>

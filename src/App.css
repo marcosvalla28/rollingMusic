@@ -10,8 +10,6 @@
   --animate-fade-in: fadeIn 0.5s ease-out forwards;
 }
 
-
-
 #app {
   display: grid;
   grid-template-areas: 
@@ -30,7 +28,7 @@
 main {
     grid-area: main;
     overflow-y: auto;
-    padding: 1rem 1rem 0 1rem;;
+    background-color: black;
 }
 
 /* mobile sin el aside para el menu hamburguesa */
@@ -53,11 +51,11 @@ main {
 @media (min-width: 768px) {
     #app {
         grid-template-areas: 
-        "navbar navbar navbar"
-        "aside main main"
-        "player player player";
-        grid-template-columns: 400px 1fr 1fr;
-        grid-template-rows: 100px 1fr 150px;
+        "navbar navbar"
+        "aside main"
+        "player player";
+        grid-template-columns: auto 1fr;
+        grid-template-rows: 80px 1fr;
     }
     
     aside {

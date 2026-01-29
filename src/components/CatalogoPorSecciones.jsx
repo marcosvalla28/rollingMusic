@@ -109,7 +109,7 @@ const CatalogoPorSecciones = () => {
 
     // 4. Renderizado principal: Mapea sobre las secciones y llama a Cards
     return (
-        <div className="bg-black min-h-screen">
+        <div className=" min-h-screen">
             {secciones.map((seccion, index) => (
                 <Cards
                     key={index}
