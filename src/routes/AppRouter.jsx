@@ -12,6 +12,7 @@ import ProtectedRoute from '../components/ProtectedRoute';
 import SongDetail from '../pages/SongDetail';
 import About from '../pages/About';
 import PlayList from '../pages/PlayList';
+import Search from '../pages/Search';
 
 
 
@@ -28,8 +29,9 @@ const AppRouter = () => {
                     <Route element={<ProtectedRoute requiredRole="user" />}>
                         <Route path="/" element={<Home />} />
                         <Route path="/nosotros" element={<About/>}/>
-                        <Route path="/playlist" />
                         <Route path="/songdetail" element={<SongDetail />} />
+                        <Route path="/search" element={<Search />} />
+                        <Route path="/lista-de-reproduccion" element={<PlayList />} />
                     </Route>
 
                     {/* RUTAS DE ADMINISTRADOR (Requieren Rol 'admin') */}
@@ -39,6 +41,7 @@ const AppRouter = () => {
                         <Route path="/home" element={<Home />} />
                         <Route path="/lista-de-reproduccion" element={<PlayList />} />
                         <Route path="/songdetail" element={<SongDetail />} />
+                        <Route path="/search" element={<Search />} />
 
                     </Route>
 

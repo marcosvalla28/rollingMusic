@@ -5,8 +5,12 @@ import Aside from '../components/Aside';
 import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = ({ toggleSidebar }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const handleMenuClick = () => {
+    toggleSidebar();
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  }
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const { user, logout } = useAuth();
 
@@ -22,8 +26,8 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           {/* botón hamburguesa para el modo mobile */}
           <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-white hover:bg-purple-900/30 rounded-lg p-2"
+            onClick={handleMenuClick}
+            className=" text-white hover:bg-purple-900/30 rounded-lg p-2"
             aria-label="Menu"
           >
             <svg

@@ -94,7 +94,7 @@ function About() {
       <EfectoLluvia/>
 
       
-      <div className="border-2 border-violet-400 rounded-xl m-8 p-6 min-h-[400px] bg-violet-300/70 flex flex-col md:flex-row items-center justify-center gap-10 z-10 w-full max-w-6xl">
+      <div className="animate-fade-in border-2 border-violet-400 rounded-xl m-8 p-6 min-h-[400px] bg-violet-300/70 flex flex-col md:flex-row items-center justify-center gap-10 z-10 w-full max-w-6xl">
 
       <div className='w-48 h-48 sm:w-64 sm:h-64 lg:w-[400px] lg:h-[400px] justify-items-center content-center shrink-0 z-10 overflow-hidden rounded-full bg-cover bg-center bg-no-repeat shadow-2xl'
       style={{ backgroundImage: miembroSeleccionado.id !== 0 ? `url(${vinilo})` : "none"}}
@@ -130,7 +130,7 @@ function About() {
       </div>
       </div>
 
-      <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:flex mt-10 mb-10 relative gap-4 justify-center'
+      <div className='animate-fade-in grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:flex mt-10 mb-10 relative gap-4 justify-center'
       >
         {miembros.map((m, index) =>(
           <img

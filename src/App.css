@@ -1,13 +1,24 @@
 @import 'tailwindcss';
 
-
+@theme {
+  /* Tus animaciones de Fade aquí */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  --animate-fade-in: fadeIn 0.5s ease-out forwards;
+}
 
 #app {
-    display: grid;
-    height: 100vh;
-    background-color: #010101;
-    color: white;
-    overflow: hidden;
+  display: grid;
+  grid-template-areas: 
+    "navbar navbar"
+    "aside main"
+    "player player";
+  grid-template-columns: 250px 1fr; /* Aside fijo, Main flexible */
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
 }
 
 #app2 {
@@ -17,7 +28,7 @@
 main {
     grid-area: main;
     overflow-y: auto;
-    padding: 1rem 1rem 0 1rem;;
+    background-color: black;
 }
 
 /* mobile sin el aside para el menu hamburguesa */
@@ -40,11 +51,11 @@ main {
 @media (min-width: 768px) {
     #app {
         grid-template-areas: 
-        "navbar navbar navbar"
-        "aside main main"
-        "player player player";
-        grid-template-columns: 400px 1fr 1fr;
-        grid-template-rows: 100px 1fr 150px;
+        "navbar navbar"
+        "aside main"
+        "player player";
+        grid-template-columns: auto 1fr;
+        grid-template-rows: 80px 1fr;
     }
     
     aside {
