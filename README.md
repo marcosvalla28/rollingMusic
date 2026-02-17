@@ -30,7 +30,7 @@ npm o yarn
 Cuenta de Firebase (para autenticación)
 
 1. Clonar el repositorio
-bashgit clone https://github.com/tu-usuario/rollingmusic.git
+bashgit clone https://github.com/marcosvalla28/rollingmusic.git
 cd rollingmusic
 1. Instalar dependencias
 bashnpm install
