@@ -12,19 +12,19 @@ export default function Player() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.5);
 
-  // 🛠️ CORRECCIÓN 1: Definir la URL de audio compatible
+  // Definir la URL de audio compatible
   const audioUrl = currentSong ? (currentSong.url_cancion || currentSong.preview) : null;
-  // 🛠️ CORRECCIÓN 2: Definir metadatos compatibles
+  //  Definir metadatos compatibles
   const displayTitle = currentSong?.titulo || currentSong?.title;
   const displayArtist = currentSong?.artista || currentSong?.artist?.name;
   const displayImage = currentSong?.url_imagen || currentSong?.album?.cover_medium || currentSong?.imagenUrl;
 
 
-  // Inicializar WaveSurfer (sin cambios, ya que está correcto)
+
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // ... (El código de inicialización de WaveSurfer se mantiene igual)
+
 
     const ws = WaveSurfer.create({
       container: containerRef.current,
@@ -48,10 +48,10 @@ export default function Player() {
     return () => ws.destroy();
   }, []);
 
-  // 🛠️ CORRECCIÓN 3: Usar la URL de audio compatible
+  // Usar la URL de audio compatible
   useEffect(() => {
     if (audioUrl && waveSurferRef.current) {
-      // 👈 Se usa la variable compatible audioUrl
+      //  Se usa la variable compatible audioUrl
       waveSurferRef.current.load(audioUrl); 
 
       const ws = waveSurferRef.current;
@@ -63,13 +63,11 @@ export default function Player() {
 
       ws.on("finish", () => setIsPlaying(false));
     }
-  }, [audioUrl]); // 👈 La dependencia ahora es audioUrl
+  }, [audioUrl]); 
 
-  // ... (togglePlay, handleVolume se mantienen igual)
-  
-  // playNextSong (se mantiene igual, ya que usa la lógica de tu contexto)
+
   const playNextSong = () => {
-     // ... (lógica de playNextSong se mantiene igual)
+    
   };
 
 
@@ -83,11 +81,11 @@ export default function Player() {
 
 
   return (
-<div className="w-full h-full flex flex-col items-center justify-center gap-4 p-2 bg-linear-to-l from-purple-950/40 to-black/40 text-white">
+<div className="w-full h-full flex flex-col items-center justify-center gap-4 p-2 bg-gradient-to-l from-purple-950/40 to-black/40 text-white">
       {/* Contenedor de ondas */}
       <div
         ref={containerRef}
-        className="w-200 h-8 bg-linear-to-b from-purple-950/40 to-black/40 rounded-2xl overflow-hidden cursor-pointer mt-5"
+        className="w-200 h-8 bg-linear-to-b overflow-hidden cursor-pointer mt-5"
       />
 
       {/* Controles */}
