@@ -56,7 +56,7 @@ const Search = () => {
                 <button
                 key={genre.name}
                 onClick={() => handleSearch(genre.name)} // Al hacer clic, busca el género
-                className={`h-24 rounded-lg bg-gradient-to-br ${genre.color}
+                className={`h-24 rounded-lg bg-linear-to-br ${genre.color}
                             flex items-center justify-center p-4 text-center
                             hover:scale-105 transition-transform duration-200 shadow-lg`}
                 >

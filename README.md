@@ -4,9 +4,6 @@ Deja que la música ruede. Tú solo dale play.
 
 Una plataforma de streaming de música tipo Spotify construida con React + Vite, diseñada como proyecto integrador de RollingCode School.
 
-📸 Vista previa
-<!-- Reemplazá estas líneas con capturas de pantalla reales del proyecto -->
-
 Agregá acá screenshots o un GIF del proyecto funcionando.
 
 
@@ -24,40 +21,6 @@ Agregá acá screenshots o un GIF del proyecto funcionando.
 🛠️ Tecnologías utilizadas
 TecnologíaUsoReact 18Framework principal de UIViteBundler y servidor de desarrolloReact Router DOMNavegación y rutasTailwind CSS v4Estilos y diseño responsivoWaveSurfer.jsVisualización de audio y reproductorFirebaseAutenticación y base de datosFontAwesomeÍconosZodValidación de formulariosDeezer APIDatos de canciones y previews
 
-🗂️ Estructura del proyecto
-src/
-├── assets/
-│   └── imagenes/
-│       └── logos/
-├── components/
-│   ├── Aside.jsx
-│   ├── Footer.jsx
-│   ├── Navbar.jsx
-│   ├── Player.jsx
-│   ├── SearchBar.jsx
-│   ├── SideMenuCard.jsx
-│   └── SideMenuItem.jsx
-├── context/
-│   ├── AuthContext.jsx       # Autenticación (Firebase)
-│   └── SongsContext.jsx      # Estado global de canciones y reproducción
-├── icons/
-│   └── icon.jsx
-├── pages/
-│   ├── Home.jsx
-│   ├── LoginPage.jsx
-│   ├── RegisterPage.jsx
-│   ├── SearchResults.jsx
-│   └── PlaylistPage.jsx
-├── routes/
-│   └── AppRouter.jsx
-├── services/
-│   └── musicApi.js           # Integración con Deezer API
-├── utils/
-│   └── validation.js         # Schemas de Zod
-├── App.css
-├── App.jsx
-├── index.css
-└── main.jsx
 
 🚀 Instalación y uso
 Prerequisitos
@@ -69,9 +32,9 @@ Cuenta de Firebase (para autenticación)
 1. Clonar el repositorio
 bashgit clone https://github.com/tu-usuario/rollingmusic.git
 cd rollingmusic
-2. Instalar dependencias
+1. Instalar dependencias
 bashnpm install
-3. Configurar variables de entorno
+1. Configurar variables de entorno
 Creá un archivo .env en la raíz del proyecto con tus credenciales de Firebase:
 envVITE_FIREBASE_API_KEY=tu_api_key
 VITE_FIREBASE_AUTH_DOMAIN=tu_auth_domain

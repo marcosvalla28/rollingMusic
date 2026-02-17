@@ -50,7 +50,7 @@ function Footer() {
         onClick={onClose}
       >
         <div
-          className="bg-gradient-to-b from-purple-950 to-neutral-900 border border-purple-500/30 text-white rounded-2xl p-6 max-w-lg w-full relative shadow-2xl shadow-purple-900/40 animate-[fadeIn_0.2s_ease-out]"
+          className="bg-linear-to-b from-purple-950 to-neutral-900 border border-purple-500/30 text-white rounded-2xl p-6 max-w-lg w-full relative shadow-2xl shadow-purple-900/40 animate-[fadeIn_0.2s_ease-out]"
           onClick={(e) => e.stopPropagation()}
         >
           <button
@@ -73,11 +73,11 @@ function Footer() {
     <footer className="w-full z-10 border-t border-purple-500/20">
 
       {/* Cuerpo principal del footer */}
-      <div className="bg-gradient-to-r from-[#0d001a] via-[#1a0033] to-[#0d001a] px-6 py-8">
+      <div className="bg-linear-to-r from-[#0d001a] via-[#1a0033] to-[#0d001a] px-6 py-8">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-8">
 
           {/* Logo */}
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <img
               src={logo}
               alt="RollingMusic logo"
@@ -125,7 +125,7 @@ function Footer() {
       </div>
 
       {/* Barra inferior de copyright */}
-      <div className="bg-gradient-to-r from-purple-950/80 via-black to-purple-950/80 py-3 px-4 text-center">
+      <div className="bg-linear-to-r from-purple-950/80 via-black to-purple-950/80 py-3 px-4 text-center">
         <p className="text-xs text-gray-500">
           © {new Date().getFullYear()} RollingMusic · Hecho con{" "}
           <span className="text-fuchsia-500">♪</span> para{" "}
