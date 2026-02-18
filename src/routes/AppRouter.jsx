@@ -13,7 +13,7 @@ import SongDetail from '../pages/SongDetail';
 import About from '../pages/About';
 import PlayList from '../pages/PlayList';
 import Search from '../pages/Search';
-import VerifyEmail from '../pages/verifyEmail';
+import VerifyEmail from '../pages/VerifyEmail';
 
 
 
