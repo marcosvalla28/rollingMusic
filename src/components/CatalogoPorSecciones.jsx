@@ -8,10 +8,10 @@ const CatalogoPorSecciones = () => {
     const navigate = useNavigate();
 
     const [secciones, setSecciones] = useState([
-        { titulo: "Recomendadas",       data: [], loading: true, error: null, fetcher: getTopTracks   },
-        { titulo: "Lo más escuchado",   data: [], loading: true, error: null, fetcher: getMostListened },
-        { titulo: "Nuevos lanzamientos",data: [], loading: true, error: null, fetcher: getNewReleases  },
-        { titulo: "Top Global",         data: [], loading: true, error: null, fetcher: getGlobalTop   },
+        { titulo: "Recomendadas",        data: [], loading: true, error: null, fetcher: getTopTracks    },
+        { titulo: "Lo más escuchado",    data: [], loading: true, error: null, fetcher: getMostListened },
+        { titulo: "Nuevos lanzamientos", data: [], loading: true, error: null, fetcher: getNewReleases  },
+        { titulo: "Top Global",          data: [], loading: true, error: null, fetcher: getGlobalTop    },
     ]);
 
     useEffect(() => {
@@ -56,7 +56,6 @@ const CatalogoPorSecciones = () => {
                     {titulo}
                 </h2>
 
-                {/* Scroll horizontal con scrollbar estilizada */}
                 <div className="flex overflow-x-auto gap-3 sm:gap-4 pb-3 px-2 sm:px-4
                                 [scrollbar-width:thin]
                                 [scrollbar-color:#7c3aed_transparent]
@@ -77,12 +76,11 @@ const CatalogoPorSecciones = () => {
                             <div
                                 key={item.id || index}
                                 onClick={handleClick}
-                                /* w-36 en móvil, w-44 en sm+ */
                                 className={`shrink-0 w-36 sm:w-44 rounded-lg p-2 sm:p-3 text-center text-white
-                                            transition-transform duration-300
+                                            transition-transform duration-300 backdrop-blur-sm
                                             ${isPlayable
-                                                ? 'bg-neutral-900 hover:scale-105 cursor-pointer'
-                                                : 'bg-neutral-800 opacity-60 cursor-not-allowed'}`}
+                                                ? 'bg-neutral-900/60 hover:scale-105 cursor-pointer hover:bg-neutral-800/70'
+                                                : 'bg-neutral-800/50 opacity-60 cursor-not-allowed'}`}
                             >
                                 {imageUrl ? (
                                     <img
@@ -106,7 +104,7 @@ const CatalogoPorSecciones = () => {
     };
 
     return (
-        <div className="min-h-screen py-4 sm:py-6">
+        <div className="py-4 sm:py-6">
             {secciones.map((seccion, index) => (
                 <Cards
                     key={index}
