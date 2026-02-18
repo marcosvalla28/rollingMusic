@@ -6,8 +6,8 @@
     "navbar navbar"
     "aside main"
     "player player";
-  grid-template-columns: 250px 1fr; /* Aside fijo, Main flexible */
-  grid-template-rows: auto 1fr auto;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr 160px;
   height: 100vh;
 }
 
@@ -17,19 +17,62 @@
 
 main {
   grid-area: main;
-  overflow-y: auto;
+  overflow-y: scroll; /* scroll siempre visible, no salta el layout */
   overflow-x: hidden;
   background-color: black;
+  position: relative;
+  scrollbar-width: thin;
+  scrollbar-color: #7c3aed #1a0033;
 }
 
-/* Player */
-[data-area="player"],
-#app > *:last-child {
+main::-webkit-scrollbar {
+  width: 6px;
+}
+
+main::-webkit-scrollbar-track {
+  background: #1a0033;
+}
+
+main::-webkit-scrollbar-thumb {
+  background: #7c3aed;
+  border-radius: 999px;
+}
+
+main::-webkit-scrollbar-thumb:hover {
+  background: #a855f7;
+}
+
+aside {
+  grid-area: aside;
+}
+
+#app > footer {
   grid-area: player;
 }
 
+.floating-lines-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
 
-/* mobile sin el aside para el menu hamburguesa */
+.floating-lines-container canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: all;
+}
+
+/* mobile */
 @media (max-width: 767px) {
     #app {
         grid-template-areas: 
@@ -45,7 +88,7 @@ main {
     }
 }
 
-/* desktop con aside */
+/* desktop */
 @media (min-width: 768px) {
     #app {
         grid-template-areas: 
@@ -53,10 +96,6 @@ main {
         "aside main"
         "player player";
         grid-template-columns: auto 1fr;
-        grid-template-rows: 80px 1fr;
-    }
-    
-    aside {
-        grid-area: aside;
+        grid-template-rows: 80px 1fr 160px;
     }
 }

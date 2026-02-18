@@ -36,8 +36,8 @@ const RegisterForm = () => {
             // 2. Llama a la función de registro por Email
             await registerWithEmail(formData.email, formData.password, formData.username);
 
-            // Registro exitoso, redirigimos al login
-            navigate('/login'); 
+            // Registro exitoso, redirigimos a verificacion de email
+            navigate('/verify-email', { state: { email: formData.email } });
 
         } catch (error) {
             if (error.issues) {

@@ -13,6 +13,7 @@ import SongDetail from '../pages/SongDetail';
 import About from '../pages/About';
 import PlayList from '../pages/PlayList';
 import Search from '../pages/Search';
+import VerifyEmail from '../pages/VerifyEmail';
 
 
 
@@ -24,6 +25,7 @@ const AppRouter = () => {
                     {/* RUTAS PÚBLICAS */}
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/verify-email" element={<VerifyEmail />} />     {/* verificacion de email */}
                     
                     {/* RUTAS PROTEGIDAS (Requieren Login) */}
                     <Route element={<ProtectedRoute requiredRole="user" />}>
