@@ -6,25 +6,29 @@ import { faBackward, faForward } from "@fortawesome/free-solid-svg-icons";
 import { useSongs } from "../context/SongsContext";
 
 export default function Player() {
-  const { currentSong, selectSong, songs } = useSongs();
+  const { currentSong } = useSongs();
   const containerRef = useRef(null);
   const waveSurferRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.5);
+  const [showVolume, setShowVolume] = useState(false);
 
-  // Definir la URL de audio compatible
-  const audioUrl = currentSong ? (currentSong.url_cancion || currentSong.preview) : null;
-  //  Definir metadatos compatibles
+  // FIX: guarda la URL previa para detectar si es canción nueva o remonte
+  const prevAudioUrlRef = useRef(null);
+
+  const audioUrl = currentSong
+    ? currentSong.url_cancion || currentSong.preview
+    : null;
+
   const displayTitle = currentSong?.titulo || currentSong?.title;
   const displayArtist = currentSong?.artista || currentSong?.artist?.name;
-  const displayImage = currentSong?.url_imagen || currentSong?.album?.cover_medium || currentSong?.imagenUrl;
-
-
+  const displayImage =
+    currentSong?.url_imagen ||
+    currentSong?.album?.cover_medium ||
+    currentSong?.imagenUrl;
 
   useEffect(() => {
     if (!containerRef.current) return;
-
-
 
     const ws = WaveSurfer.create({
       container: containerRef.current,
@@ -48,28 +52,28 @@ export default function Player() {
     return () => ws.destroy();
   }, []);
 
-  // Usar la URL de audio compatible
   useEffect(() => {
-    if (audioUrl && waveSurferRef.current) {
-      //  Se usa la variable compatible audioUrl
-      waveSurferRef.current.load(audioUrl); 
+    if (!audioUrl || !waveSurferRef.current) return;
 
-      const ws = waveSurferRef.current;
+    // Solo reproduce automáticamente si es una canción NUEVA
+    // Si el componente se remontó por navegación (misma URL), queda pausada
+    const isNewSong = audioUrl !== prevAudioUrlRef.current;
+    prevAudioUrlRef.current = audioUrl;
 
-      ws.once("ready", () => {
+    waveSurferRef.current.load(audioUrl);
+    const ws = waveSurferRef.current;
+
+    ws.once("ready", () => {
+      if (isNewSong) {
         ws.play();
-        setIsPlaying(true); 
-      });
+        setIsPlaying(true);
+      }
+    });
 
-      ws.on("finish", () => setIsPlaying(false));
-    }
-  }, [audioUrl]); 
+    ws.on("finish", () => setIsPlaying(false));
+  }, [audioUrl]);
 
-
-  const playNextSong = () => {
-    
-  };
-
+  const playNextSong = () => {};
 
   const togglePlay = () => waveSurferRef.current?.playPause();
 
@@ -79,36 +83,39 @@ export default function Player() {
     waveSurferRef.current?.setVolume(newVol);
   };
 
-
   return (
-<div className="w-full h-full flex flex-col items-center justify-center gap-4 p-2 bg-gradient-to-l from-purple-950/40 to-black/40 text-white">
-      {/* Contenedor de ondas */}
+    <div
+      className="w-full h-full flex flex-col items-center justify-center 
+                 gap-4 p-2 
+                 bg-linear-to-l from-purple-950/40 to-black/40 text-white"
+    >
       <div
         ref={containerRef}
-        className="w-200 h-8 bg-linear-to-b overflow-hidden cursor-pointer mt-5"
+        className="hidden sm:block w-200 h-8 bg-linear-to-b overflow-hidden cursor-pointer mt-5"
       />
 
-      {/* Controles */}
-      <div className="flex flex-row items-center justify-center gap-6 ">
+      <div className="flex flex-wrap sm:flex-nowrap items-center justify-center gap-6 w-full">
         {currentSong ? (
           <img
             src={displayImage}
-            alt={displayTitle || "Portada"} 
-            className="w-14 h-14 rounded-lg border-2 border-fuchsia-700"
-            onError={(e) => { e.target.onerror = null; e.target.src="https://via.placeholder.com/56"; }}
+            alt={displayTitle || "Portada"}
+            className="w-14 h-14 rounded-lg border-2 border-fuchsia-700 shrink-0"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "https://via.placeholder.com/56";
+            }}
           />
         ) : (
-          <div className="w-14 h-14 rounded-lg bg-black border-2 border-gray-700 flex items-center justify-center text-gray-400">
+          <div className="w-14 h-14 rounded-lg bg-black border-2 border-gray-700 flex items-center justify-center text-gray-400 shrink-0">
             🎵
           </div>
         )}
 
         {currentSong && (
-          <p className="text-white text-center hover:text-purple-400 hover:drop-shadow-lg hover:scale-105">
+          <p className="hidden sm:block text-white text-center hover:text-purple-400 hover:drop-shadow-lg hover:scale-105 truncate max-w-xs">
             Reproduciendo: {displayTitle} - {displayArtist}
           </p>
         )}
-        
 
         <button
           onClick={() => {
@@ -120,7 +127,6 @@ export default function Player() {
           <FontAwesomeIcon icon={faBackward} />
         </button>
 
-        {/* play.pause*/}
         <button
           onClick={togglePlay}
           className="relative w-10 h-10 flex items-center justify-center bg-linear-to-br from-purple-600 via-violet-600 to-fuchsia-600 rounded-full shadow-lg shadow-purple-500/50 transition-all duration-300 hover:scale-110 hover:shadow-purple-500/70 active:scale-95 group"
@@ -133,7 +139,6 @@ export default function Player() {
           )}
         </button>
 
-        {/* adelantar */}
         <button
           onClick={playNextSong}
           className="w-12 h-12 flex items-center justify-center text-purple-300 hover:text-white hover:bg-purple-600/30 rounded-full transition-all duration-300 hover:scale-110 active:scale-95 backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40"
@@ -141,24 +146,55 @@ export default function Player() {
           <FontAwesomeIcon icon={faForward} />
         </button>
 
-        <div className="flex items-center gap-2 ml-4">
-          <VolumeIcon className="w-5 h-5 text-white" />
-          <input
-            type="range"
-            min={0}
-            max={1}
-            step={0.01}
-            value={volume}
-            onChange={handleVolume}
-            className="w-32 h-1 rounded-full accent-purple-600 cursor-pointer"
-            style={{
-              background: `linear-gradient(to right, #a855f7 0%, #d946ef ${
-                volume * 100
-              }%, rgba(88,28,135,0.3) ${
-                volume * 100
-              }%, rgba(88,28,135,0.3) 100%)`,
-            }}
-          />
+        <div className="relative flex items-center ml-4">
+          <button
+            onClick={() => setShowVolume(!showVolume)}
+            className="flex items-center justify-center"
+          >
+            <VolumeIcon className="w-5 h-5 text-white" />
+          </button>
+
+          <div className="hidden sm:flex items-center gap-2 ml-2">
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.01}
+              value={volume}
+              onChange={handleVolume}
+              className="w-32 h-1 rounded-full accent-purple-600 cursor-pointer"
+              style={{
+                background: `linear-gradient(to right, #a855f7 0%, #d946ef ${
+                  volume * 100
+                }%, rgba(88,28,135,0.3) ${
+                  volume * 100
+                }%, rgba(88,28,135,0.3) 100%)`,
+              }}
+            />
+          </div>
+
+          {showVolume && (
+            <div
+              className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2
+               bg-black/95 backdrop-blur-md
+               p-4 rounded-xl shadow-2xl
+               sm:hidden z-50 flex items-center justify-center"
+            >
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.01}
+                value={volume}
+                onChange={handleVolume}
+                className="h-32 w-1 accent-purple-600 cursor-pointer appearance-none"
+                style={{
+                  writingMode: "bt-lr",
+                  WebkitAppearance: "slider-vertical",
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -161,4 +161,4 @@ Proyecto desarrollado en equipo como trabajo final integrador en **RollingCode S
 
 ## 📄 Licencia
 
-Este proyecto fue desarrollado con fines educativos. Todos los derechos reservados © 2026 RollingCode.
+Este proyecto fue desarrollado con fines educativos. Todos los derechos reservados © 2025 RollingCode.

@@ -21,7 +21,7 @@ const menuItems = [
 function Aside({ onItemClick }) {
   return (
     <aside className="hidden md:flex flex-col
-                      bg-gradient-to-b from-purple-950/40 to-black/40
+                      bg-linear-to-b from-purple-950/40 to-black/40
                       border-r border-purple-500/10
                       w-full h-full overflow-y-auto">
       <nav aria-label="NavegaciÃ³n principal" className="flex flex-col flex-1 p-2 pt-4">
@@ -30,7 +30,7 @@ function Aside({ onItemClick }) {
             <SideMenuItem key={href} href={href} onClick={onItemClick}>
               <FontAwesomeIcon
                 icon={icon}
-                className="w-4 h-4 flex-shrink-0"
+                className="w-4 h-4 shrink-0"
                 aria-hidden="true"
               />
               <span className="truncate">{label}</span>
