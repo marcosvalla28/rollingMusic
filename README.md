@@ -4,7 +4,9 @@
 
 Una plataforma de streaming de música tipo Spotify construida con **React + Vite**, diseñada como proyecto integrador de RollingCode School.
 
-Agregá acá screenshots o un GIF del proyecto funcionando.
+
+
+## ✨ Características
 
 - 🎧 **Reproductor de música** con WaveSurfer.js — visualización de ondas, play/pause, avance/retroceso y control de volumen
 - 🔍 **Búsqueda en tiempo real** de canciones, artistas y álbumes
@@ -32,6 +34,7 @@ Agregá acá screenshots o un GIF del proyecto funcionando.
 
 ---
 
+## 🚀 Instalación y uso
 
 ### Prerequisitos
 
@@ -39,14 +42,25 @@ Agregá acá screenshots o un GIF del proyecto funcionando.
 - npm o yarn
 - Cuenta de Firebase (para autenticación)
 
-1. Clonar el repositorio
-bashgit clone https://github.com/marcosvalla28/rollingmusic.git
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/marcosvalla28/rollingmusic.git
 cd rollingmusic
-1. Instalar dependencias
-bashnpm install
-1. Configurar variables de entorno
-Creá un archivo .env en la raíz del proyecto con tus credenciales de Firebase:
-envVITE_FIREBASE_API_KEY=tu_api_key
+```
+
+### 2. Instalar dependencias
+
+```bash
+npm install
+```
+
+### 3. Configurar variables de entorno
+
+Creá un archivo `.env` en la raíz del proyecto con tus credenciales de Firebase:
+
+```env
+VITE_FIREBASE_API_KEY=tu_api_key
 VITE_FIREBASE_AUTH_DOMAIN=tu_auth_domain
 VITE_FIREBASE_PROJECT_ID=tu_project_id
 VITE_FIREBASE_STORAGE_BUCKET=tu_storage_bucket
@@ -147,4 +161,4 @@ Proyecto desarrollado en equipo como trabajo final integrador en **RollingCode S
 
 ## 📄 Licencia
 
-Este proyecto fue desarrollado con fines educativos. Todos los derechos reservados © 2026 RollingCode.
+Este proyecto fue desarrollado con fines educativos. Todos los derechos reservados © 2025 RollingCode.
