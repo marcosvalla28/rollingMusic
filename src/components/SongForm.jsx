@@ -1,111 +1,132 @@
 import React, { useState, useEffect } from 'react';
 import { songSchema } from '../utils/validation';
+import { useSongs } from '../context/SongsContext'; // Para refrescar la lista
+import Swal from 'sweetalert2';
 
 const initialFormState = {
     titulo: '',
     artista: '',
     categoria: '',
-    url_imagen: '',
-    url_cancion: '',
 };
 
 const SongForm = ({ initialData, onSubmit, onCancel }) => {
-    // 1. Estado del Formulario
+    const { syncSongs } = useSongs();
     const [formData, setFormData] = useState(initialFormState);
+    const [files, setFiles] = useState({ audio: null, cover: null });
     const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
 
-    // 2. Efecto para manejar el modo EDICIÓN
     useEffect(() => {
         if (initialData) {
-            // Si initialData existe, estamos editando: carga los datos
             setFormData(initialData);
         } else {
-            // Si no, estamos creando: limpia el formulario
             setFormData(initialFormState);
+            setFiles({ audio: null, cover: null });
         }
     }, [initialData]);
 
-    // 3. Manejar cambios de Input
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
-        
-        if (errors[name]) {
-            setErrors({ ...errors, [name]: null });
-        }
+        setFormData({ ...formData, [name]: value });
+        if (errors[name]) setErrors({ ...errors, [name]: null });
     };
 
-    // 4. Manejar Envío y Validación Zod
-    const handleSubmit = (e) => {
+    // Nuevo: Maneja la selección de archivos físicos
+    const handleFileChange = (e) => {
+        const { name, files: selectedFiles } = e.target;
+        setFiles({ ...files, [name]: selectedFiles[0] });
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrors({}); // Limpiar errores previos
+        setErrors({});
+        setLoading(true);
 
         try {
-            // Validación: parsear los datos con el schema
-            const validatedData = songSchema.parse(formData);
+            // 1. Validamos los campos de texto con tu Zod schema
+            songSchema.parse(formData);
+
+            // 2. Preparamos el FormData (Obligatorio para Multer)
+            const data = new FormData();
+            data.append('title', formData.titulo);
+            data.append('artist', formData.artista);
+            data.append('album', formData.categoria);
             
-            // Si es exitoso, llama a la función onSubmit (que está en Admin.jsx)
-            onSubmit(validatedData);
+            // Solo adjuntamos archivos si existen (necesario para creación)
+            if (files.audio) data.append('audio', files.audio);
+            if (files.cover) data.append('cover', files.cover);
+
+            // 3. Enviamos al controlador del componente padre (Admin.jsx)
+            // El componente Admin.jsx debería llamar a musicApi.post('/song', data)
+            await onSubmit(data);
             
-            // Limpiar el formulario después de la creación/edición (si no estamos en modo edición)
+            // 4. Refrescamos el contexto global de canciones
+            syncSongs();
+
             if (!initialData) {
-                 setFormData(initialFormState);
+                setFormData(initialFormState);
+                setFiles({ audio: null, cover: null });
+                e.target.reset(); // Limpia los inputs de archivo
             }
 
         } catch (error) {
-            // Si Zod falla, el error tiene un formato específico (issues)
             if (error.issues) {
                 const newErrors = {};
                 error.issues.forEach(issue => {
-                    // Mapea el error al nombre del campo
                     newErrors[issue.path[0]] = issue.message; 
                 });
                 setErrors(newErrors);
             } else {
-                console.error("Error inesperado en la validación:", error);
+                console.error("Error en la operación:", error);
             }
+        } finally {
+            setLoading(false);
         }
     };
-    
-    // Función de ayuda para renderizar los campos con Tailwind
-    const renderInput = (name, label, type = 'text') => (
+
+    // Helper renderInput mejorado para aceptar archivos
+    const renderInput = (name, label, type = 'text', isFile = false) => (
         <div className="mb-4">
             <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
             <input
                 type={type}
                 id={name}
                 name={name}
-                value={formData[name] || ''} // Usar '' si es null
-                onChange={handleChange}
+                accept={name === 'cover' ? "image/*" : name === 'audio' ? "audio/*" : ""}
+                value={isFile ? undefined : (formData[name] || '')}
+                onChange={isFile ? handleFileChange : handleChange}
                 className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors[name] ? 'border-red-500' : 'border-gray-300'}`}
+                required={!initialData && isFile} // Obligatorio solo al crear
             />
             {errors[name] && <p className="mt-1 text-sm text-red-500">{errors[name]}</p>}
         </div>
     );
 
     return (
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded-xl shadow-lg">
+            <h3 className="text-xl font-bold text-gray-800 border-b pb-2">
+                {initialData ? 'Editar Canción' : 'Publicar Contenido Original'}
+            </h3>
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {renderInput('titulo', 'Título de la Canción')}
                 {renderInput('artista', 'Artista o Grupo')}
             </div>
             
-            {renderInput('categoria', 'Categoría (Álbum)')}
+            {renderInput('categoria', 'Álbum / Categoría')}
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {renderInput('url_imagen', 'URL de Imagen (Carátula)', 'url')}
-                {renderInput('url_cancion', 'URL de Canción (Preview)', 'url')}
+                {renderInput('cover', 'Archivo de Carátula', 'file', true)}
+                {renderInput('audio', 'Archivo MP3 / Audio', 'file', true)}
             </div>
             
-            <div className="flex justify-start space-x-4 pt-2">
+            <div className="flex justify-start space-x-4 pt-4">
                 <button
                     type="submit"
-                    className="px-6 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-200"
+                    disabled={loading}
+                    className="px-6 py-2 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition duration-200 disabled:bg-gray-400"
                 >
-                    {initialData ? 'Guardar Cambios' : 'Crear Canción'}
+                    {loading ? 'Subiendo...' : initialData ? 'Guardar Cambios' : 'Crear Canción'}
                 </button>
                 
                 {initialData && (
