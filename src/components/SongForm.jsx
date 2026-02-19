@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { songSchema } from '../utils/validation';
-import { useSongs } from '../context/SongsContext'; // Para refrescar la lista
+import { useSongs } from '../context/SongsContext';
 import Swal from 'sweetalert2';
 
 const initialFormState = {
@@ -18,7 +18,11 @@ const SongForm = ({ initialData, onSubmit, onCancel }) => {
 
     useEffect(() => {
         if (initialData) {
-            setFormData(initialData);
+            setFormData({
+                titulo: initialData.title,
+                artista: initialData.artist,
+                categoria: initialData.genre,
+            });
         } else {
             setFormData(initialFormState);
             setFiles({ audio: null, cover: null });
@@ -31,7 +35,6 @@ const SongForm = ({ initialData, onSubmit, onCancel }) => {
         if (errors[name]) setErrors({ ...errors, [name]: null });
     };
 
-    // Nuevo: Maneja la selección de archivos físicos
     const handleFileChange = (e) => {
         const { name, files: selectedFiles } = e.target;
         setFiles({ ...files, [name]: selectedFiles[0] });
@@ -43,30 +46,44 @@ const SongForm = ({ initialData, onSubmit, onCancel }) => {
         setLoading(true);
 
         try {
-            // 1. Validamos los campos de texto con tu Zod schema
+            // 1. Validamos los campos de texto
             songSchema.parse(formData);
 
-            // 2. Preparamos el FormData (Obligatorio para Multer)
+            if (!files.audio || !files.cover) {
+            setErrors({
+            audio: !files.audio ? "El audio es obligatorio" : null,
+            cover: !files.cover ? "La portada es obligatoria" : null
+            });
+            setLoading(false);
+            return;
+            }
+
+            // 2. Preparamos el FormData para Multer
             const data = new FormData();
+            
+            // 🛠️ Mapeo exacto a las keys que espera el Modelo/Backend
             data.append('title', formData.titulo);
             data.append('artist', formData.artista);
-            data.append('album', formData.categoria);
+            data.append('genre', formData.categoria);
+            data.append('audio', files.audio);
+            data.append('cover', files.cover);
             
-            // Solo adjuntamos archivos si existen (necesario para creación)
+            // Adjuntamos archivos físicos
             if (files.audio) data.append('audio', files.audio);
             if (files.cover) data.append('cover', files.cover);
 
-            // 3. Enviamos al controlador del componente padre (Admin.jsx)
-            // El componente Admin.jsx debería llamar a musicApi.post('/song', data)
+            // 3. Envío al componente padre (Admin.jsx)
             await onSubmit(data);
             
-            // 4. Refrescamos el contexto global de canciones
+            // 4. Sincronización exitosa
             syncSongs();
+            
+            Swal.fire('¡Éxito!', `Canción ${initialData ? 'actualizada' : 'creada'} correctamente`, 'success');
 
             if (!initialData) {
                 setFormData(initialFormState);
                 setFiles({ audio: null, cover: null });
-                e.target.reset(); // Limpia los inputs de archivo
+                e.target.reset(); 
             }
 
         } catch (error) {
@@ -78,26 +95,48 @@ const SongForm = ({ initialData, onSubmit, onCancel }) => {
                 setErrors(newErrors);
             } else {
                 console.error("Error en la operación:", error);
+                Swal.fire('Error', error.response?.data?.message || 'Error al procesar la canción', 'error');
             }
         } finally {
             setLoading(false);
         }
     };
 
-    // Helper renderInput mejorado para aceptar archivos
     const renderInput = (name, label, type = 'text', isFile = false) => (
         <div className="mb-4">
             <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
-            <input
-                type={type}
-                id={name}
-                name={name}
-                accept={name === 'cover' ? "image/*" : name === 'audio' ? "audio/*" : ""}
-                value={isFile ? undefined : (formData[name] || '')}
-                onChange={isFile ? handleFileChange : handleChange}
-                className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors[name] ? 'border-red-500' : 'border-gray-300'}`}
-                required={!initialData && isFile} // Obligatorio solo al crear
-            />
+            {name === 'categoria' ? (
+                // 🛠️ Usamos un select para asegurar que el género sea válido para el ENUM del modelo
+                <select
+                    id={name}
+                    name={name}
+                    value={formData[name]}
+                    onChange={handleChange}
+                    className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors[name] ? 'border-red-500' : 'border-gray-300'}`}
+                    required
+                >
+                    <option value="">Seleccionar Género</option>
+                    <option value="rock">Rock</option>
+                    <option value="pop">Pop</option>
+                    <option value="cumbia">Cumbia</option>
+                    <option value="bachata">Bachata</option>
+                    <option value="trap">Trap</option>
+                    <option value="hip-hop">Hip-Hop</option>
+                    <option value="baladas">Baladas</option>
+                    <option value="otro">Otro</option>
+                </select>
+            ) : (
+                <input
+                    type={type}
+                    id={name}
+                    name={name}
+                    accept={name === 'cover' ? "image/*" : name === 'audio' ? "audio/*" : ""}
+                    value={isFile ? undefined : (formData[name] || '')}
+                    onChange={isFile ? handleFileChange : handleChange}
+                    className={`w-full px-3 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors[name] ? 'border-red-500' : 'border-gray-300'}`}
+                    required={isFile}
+                />
+            )}
             {errors[name] && <p className="mt-1 text-sm text-red-500">{errors[name]}</p>}
         </div>
     );
@@ -113,7 +152,7 @@ const SongForm = ({ initialData, onSubmit, onCancel }) => {
                 {renderInput('artista', 'Artista o Grupo')}
             </div>
             
-            {renderInput('categoria', 'Álbum / Categoría')}
+            {renderInput('categoria', 'Género Musical')}
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {renderInput('cover', 'Archivo de Carátula', 'file', true)}

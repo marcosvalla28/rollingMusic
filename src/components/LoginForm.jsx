@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'; // 🛠️ Usamos Link para navegación interna
 import { useAuth } from '../context/AuthContext'; 
 import { loginSchema } from '../utils/validation'; 
+import { jwtDecode } from "jwt-decode";
 import Swal from 'sweetalert2'; // 🛠️ Sugerencia: Mejora la estética de los errores
 import Fondo from '../assets/imagenes/logos/FondoLogo.jpg'
 import logo from '../assets/imagenes/logos/Logo.png'
@@ -25,16 +26,19 @@ const LoginForm = () => {
     // MANEJO DE LOGIN CON GOOGLE
     // ----------------------------------------------------
     const handleGoogleLogin = async () => {
-        setIsSubmitting(true);
-        try {
-            await loginWithGoogle();
-            navigate('/'); 
-        } catch (error) {
-            Swal.fire('Error', 'No se pudo conectar con Google. Reintenta.', 'error');
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
+    setIsSubmitting(true);
+    try {
+        // 🛠️ Simplemente llamamos a la función del contexto. 
+        // Ella ya se encarga de todo con Firebase y el Backend.
+        await loginWithGoogle();
+        navigate('/'); 
+    } catch (error) {
+        console.error("Error en login:", error);
+        Swal.fire('Error', 'No se pudo sincronizar con Google', 'error');
+    } finally {
+        setIsSubmitting(false);
+    }
+};
     
     // ----------------------------------------------------
     // MANEJO DE LOGIN CON EMAIL/PASSWORD

@@ -39,27 +39,60 @@ export const AuthProvider = ({ children }) => {
     };
 
     const loginWithGoogle = async () => {
-        try {
-            const firebaseUser = await googleAuthService.loginWithGoogle();
-            const response = await musicApi.post('/auth/login', { 
-                email: firebaseUser.email,
-                isGoogleLogin: true 
-            });
+    try {
+        const firebaseUser = await googleAuthService.loginWithGoogle();
+        
+        const fullName = firebaseUser.displayName || "Usuario Google";
+        const [firstName, ...lastNameParts] = fullName.split(" ");
+        const lastName = lastNameParts.join(" ") || "Google";
 
-            const { token, data } = response.data;
-            saveSession({
-                id: data.id || data._id,
-                email: data.email,
-                displayName: data.displayName,
-                role: data.role,
-                avatar: data.img
-            }, token);
+        // 🛠️ Enviamos 'isGoogleLogin' como string para asegurar compatibilidad
+        const response = await musicApi.post('/auth/login', { 
+            email: firebaseUser.email,
+            name: firstName,
+            surname: lastName,
+            isGoogleLogin: "true" 
+        });
 
-        } catch (error) {
-            console.error('Error Google Auth:', error);
-            Swal.fire('Error', 'No se pudo sincronizar con Google', 'error');
-        }
+        const { token, data } = response.data;
+        saveSession({
+            id: data.id || data._id,
+            email: data.email,
+            displayName: data.name,
+            role: data.role,
+            avatar: data.photoURL || data.profilePic
+        }, token);
+
+        return response.data; // 🛠️ IMPORTANTE: Retorna la data para que el Form sepa que terminó
+    } catch (error) {
+        console.error('Detalle error backend:', error.response?.data);
+        throw error; 
+    }
     };
+
+    const updateUserData = async (updatedData) => {
+    try {
+        // Solo mandamos name y surname
+        const dataToSend = {
+            name: updatedData.name,
+            surname: updatedData.surname
+        };
+
+        const response = await musicApi.put('/auth/profile/update', dataToSend);
+        const { data } = response.data;
+
+        // Actualizamos el estado local manteniendo el mismo email
+        const newUserState = { 
+            ...user, 
+            displayName: `${data.name} ${data.surname || ''}`.trim()
+        };
+        
+        saveSession(newUserState, localStorage.getItem('token'));
+        return data;
+    } catch (error) {
+        throw error;
+    }
+};
 
     // --- 🛠️ REGISTRO ACTUALIZADO PARA FORMDATA ---
     const registerWithEmail = async (formData) => {
@@ -105,6 +138,7 @@ export const AuthProvider = ({ children }) => {
         isLoading,
         loginWithEmail,
         loginWithGoogle,
+        updateUserData,
         registerWithEmail,
         logout,
     };
