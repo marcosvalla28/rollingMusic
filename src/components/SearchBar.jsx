@@ -77,7 +77,7 @@ const SearchBar = () => {
       {/* Botón Buscar - Desktop */}
       <button
         type="submit"
-        className="hidden md:block shrink-0 bg-gradient-to-r from-purple-700 to-fuchsia-700 
+        className="hidden md:block shrink-0 bg-linear-to-r from-purple-700 to-fuchsia-700 
                    hover:from-purple-600 hover:to-fuchsia-600 px-6 h-10 rounded-full 
                    text-white font-bold text-xs uppercase tracking-widest shadow-lg 
                    shadow-purple-900/20 transition-all active:scale-95"
@@ -89,7 +89,7 @@ const SearchBar = () => {
       <button
         type="submit"
         className="md:hidden shrink-0 w-10 h-10 flex items-center justify-center 
-                   bg-gradient-to-br from-purple-600 to-fuchsia-600 rounded-full 
+                   bg-linear-to-br from-purple-600 to-fuchsia-600 rounded-full 
                    shadow-lg shadow-purple-900/40 active:scale-90"
       >
         <FontAwesomeIcon icon={faMusic} className="text-white text-sm" />

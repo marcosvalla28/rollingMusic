@@ -74,7 +74,7 @@ const Search = () => {
                 <Aside />
             </aside>
 
-            <main className="[grid-area:main] overflow-y-auto w-full bg-gradient-to-b from-neutral-900 to-black">
+            <main className="[grid-area:main] overflow-y-auto w-full bg-linear-to-b from-neutral-900 to-black">
                 <div className='animate-fade-in px-4 md:px-8 py-6 w-full max-w-7xl mx-auto'>
                     
                     <h2 className="text-3xl font-black text-violet-400 mb-8 border-b border-violet-900/30 pb-4">
@@ -87,7 +87,7 @@ const Search = () => {
                             <button
                                 key={genre.name}
                                 onClick={() => handleGenreClick(genre.name)}
-                                className={`h-28 rounded-xl bg-gradient-to-br ${genre.color}
+                                className={`h-28 rounded-xl bg-linear-to-br ${genre.color}
                                             flex items-start p-4 text-left relative overflow-hidden
                                             hover:scale-[1.03] active:scale-95 transition-all duration-300 shadow-xl group`}
                             >

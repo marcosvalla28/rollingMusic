@@ -45,13 +45,13 @@ function Aside({ onItemClick }) {
             <span className="truncate">Favoritos</span>
           </SideMenuItem>
 
-          {/* 🛠️ SECCIÓN DINÁMICA: TUS PLAYLISTS */}
+          {/*  SECCION DINÁMICA: PLAYLISTS */}
           <div className="pt-6 mt-2 border-t border-white/5">
             <div className="flex items-center justify-between px-4 mb-3">
                <p className="text-[10px] uppercase tracking-widest font-bold text-gray-500">
                 Tu Biblioteca
               </p>
-              {/* Enlace rápido para ver todas o crear */}
+              {/* Enlace rapido para ver todas o crear */}
               <a href="/mis-playlists" onClick={onItemClick} className="text-[10px] text-purple-400 hover:text-white">Ver todo</a>
             </div>
             
@@ -60,7 +60,7 @@ function Aside({ onItemClick }) {
                 playlists.map((pl) => (
                   <SideMenuItem 
                     key={pl._id} 
-                    href={`/playlist/${pl._id}`} // 🛠️ Ruta dinámica al detalle
+                    href={`/playlist/${pl._id}`} //  Ruta dinámica al detalle
                     onClick={onItemClick}
                   >
                     <FontAwesomeIcon
