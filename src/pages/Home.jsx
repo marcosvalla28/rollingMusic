@@ -78,7 +78,7 @@ const Home = () => {
                 />
             </div>
 
-            <footer className="[grid-area:player] w-full h-40 relative overflow-hidden" style={{ zIndex: 20 }}>
+            <footer className="[grid-area:player] w-full h-40 relative overflow-visible" style={{ zIndex: 20 }}>
                 <Player/>
             </footer>
 
