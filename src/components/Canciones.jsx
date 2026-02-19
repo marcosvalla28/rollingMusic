@@ -1,51 +1,148 @@
+import React, { useState } from 'react';
 import { useSongs } from "../context/SongsContext";
 import { useNavigate } from "react-router-dom";
+import AddToPlaylistModal from "./AddToPlaylistModal";
 
-const Canciones = ({ songs }) => {
-  const { selectSong } = useSongs();
+// 🛠️ Recibimos onRemoveSong e isPlaylistView como props
+const Canciones = ({ songs, onRemoveSong, isPlaylistView = false }) => {
+  const { selectSong, toggleFavorite, favorites } = useSongs();
   const navigate = useNavigate();
+
+  const [selectedSongForPlaylist, setSelectedSongForPlaylist] = useState(null);
+
+  const API_URL_FILES = import.meta.env.VITE_API_URL_FILES || 'http://localhost:3000';
 
   if (!songs || songs.length === 0) return null;
 
   return (
     <div className="mb-10 sm:mb-12 px-2 sm:px-4">
-      {/* Grid responsivo: 2 cols en móvil → más en pantallas grandes */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6
                       gap-3 sm:gap-4 md:gap-6 w-full py-4">
         {songs.map((item, index) => {
-          const imageUrl   = item.album?.cover_medium || item.cover_medium || item.imagenUrl || "https://via.placeholder.com/150";
-          const title      = item.title  || item.titulo || item.name  || "Título Desconocido";
-          const artistName = item.artista || item.artist?.name || item.artist || "Artista Desconocido";
-          const isPlayable = !!item.preview || (item.codigo_unico && item.codigo_unico.startsWith("crud-"));
+          
+          // 🛠️ LÓGICA DE IMAGEN
+          let imageUrl = item.cover || item.imagePath || item.cover_medium || item.imagenUrl || item.album?.cover_medium;
+          
+          if (imageUrl && !imageUrl.startsWith('http')) {
+            imageUrl = `${API_URL_FILES}/uploads/covers/${imageUrl}`;
+          } else if (!imageUrl) {
+            imageUrl = "https://i.ibb.co/ZRn36S2x/Cover-Default-Playlist.jpg";
+          }
 
-          const handleClick = () => isPlayable ? selectSong(item) : navigate("/notFound");
+          // 🛠️ LÓGICA DE REPRODUCCIÓN
+          if (item.audio && !item.audio.startsWith('http')) {
+            item.preview = `${API_URL_FILES}/uploads/songs/${item.audio}`;
+          }
+
+          const title      = item.title  || item.titulo || item.name  || "Título Desconocido";
+          const artistName = item.artist?.name || item.artista || item.artist || "Artista Desconocido";
+
+          const isPlayable = !!item.preview || !!item.url_cancion;
+          const isFavorite = favorites?.includes(item.codigo_unico);
+
+          const handleClick = () => {
+            if (isPlayable) {
+              selectSong(item);
+            } else {
+              navigate("/notFound");
+            }
+          };
 
           return (
             <div
               key={item.codigo_unico || item.id || index}
               onClick={handleClick}
-              className={`rounded-lg p-2 sm:p-3 text-center text-white transition-transform duration-300
+              className={`group relative rounded-xl p-3 text-center text-white transition-all duration-300
                           ${isPlayable
-                            ? "bg-neutral-900 hover:scale-105 cursor-pointer"
+                            ? "bg-neutral-900/40 hover:bg-neutral-800 cursor-pointer hover:-translate-y-1 shadow-lg"
                             : "bg-neutral-800 opacity-60 cursor-not-allowed"}`}
             >
-              {imageUrl ? (
+              
+              {/* BOTÓN DE FAVORITOS */}
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation(); 
+                  toggleFavorite(item);
+                }}
+                className="absolute top-4 right-4 z-20 p-1.5 rounded-full bg-black/40 backdrop-blur-md 
+                            opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:scale-110"
+              >
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  className={`h-5 w-5 transition-colors ${isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-300 fill-none hover:text-white'}`} 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </button>
+
+              {/* 🛠️ BOTÓN CONDICIONAL: QUITAR DE PLAYLIST O AGREGAR A PLAYLIST */}
+              {isPlaylistView ? (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onRemoveSong(item.codigo_unico);
+                  }}
+                  className="absolute top-4 left-4 z-20 p-1.5 rounded-full bg-red-600/40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:scale-110 text-white hover:bg-red-600"
+                  title="Quitar de la lista"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              ) : (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedSongForPlaylist(item);
+                  }}
+                  className="absolute top-4 left-4 z-20 p-1.5 rounded-full bg-black/40 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:scale-110 text-white hover:bg-violet-600"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                </button>
+              )}
+
+              <div className="relative overflow-hidden rounded-lg mb-3 aspect-square shadow-black/50 shadow-md">
                 <img
                   src={imageUrl}
                   alt={title}
-                  className="w-full aspect-square object-cover rounded-md mb-2"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://i.ibb.co/ZRn36S2x/Cover-Default-Playlist.jpg";
+                  }}
                 />
-              ) : (
-                <div className="bg-gray-700 border-2 border-gray-600 rounded-md w-full aspect-square mb-2 flex items-center justify-center">
-                  <span className="text-gray-500 text-xs">Sin imagen</span>
-                </div>
-              )}
-              <h4 className="text-sm sm:text-base font-semibold truncate">{title}</h4>
-              <p  className="text-xs sm:text-sm text-gray-400 truncate">{artistName}</p>
+                {isPlayable && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="bg-violet-600 p-3 rounded-full shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-transform">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 fill-white" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"/>
+                      </svg>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <h4 className="text-sm sm:text-base font-bold truncate text-gray-100 group-hover:text-violet-400 transition-colors">
+                {title}
+              </h4>
+              <p className="text-xs sm:text-sm text-gray-500 truncate mt-1">
+                {artistName}
+              </p>
             </div>
           );
         })}
       </div>
+
+      {selectedSongForPlaylist && (
+        <AddToPlaylistModal
+          song={selectedSongForPlaylist}
+          onClose={() => setSelectedSongForPlaylist(null)}
+        />
+      )} 
     </div>
   );
 };
