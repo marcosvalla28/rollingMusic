@@ -68,21 +68,22 @@ const RegisterForm = () => {
     
     // --- CAMBIO CLAVE AQUÍ ---
     // Tu backend probablemente espera 'name' y no 'username'
-    dataToSend.append('name', formData.username); 
+    dataToSend.append('name', formData.username);
+    dataToSend.append('surname', formData.surname);
     dataToSend.append('email', formData.email);
     dataToSend.append('password', formData.password);
     
     // Tu backend usa 'uploadProfile' de Multer. 
     // Asegúrate que el nombre 'img' coincida con lo definido en config/multer.js
     if (croppedImage) {
-        dataToSend.append('img', croppedImage); 
+        dataToSend.append('profilePic', croppedImage); 
     }
 
     // 3. Registrar
     await registerWithEmail(dataToSend);
     
     // El Swal de éxito y el navigate se mantienen igual
-    navigate('/login');
+    navigate('/verify-email', { state: { email: formData.email } });
         } catch (error) {
             if (error.name === 'ZodError' || error.issues) {
                 const newErrors = {};
@@ -152,9 +153,18 @@ const RegisterForm = () => {
                             <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" accept="image/*" />
                         </div>
 
-                        <input type="text" name="username" placeholder="Nombre de Usuario" value={formData.username} 
+                        <input type="text" name="username" placeholder="Nombre" value={formData.username} 
                                onChange={(e) => setFormData({...formData, username: e.target.value})} 
                                className={`w-full p-3 rounded-lg bg-neutral-900 border ${errors.username ? 'border-red-500' : 'border-neutral-700'} text-white outline-none focus:ring-2 focus:ring-violet-600 transition-all`} />
+
+                        <input 
+                        type="text" 
+                        name="surname" 
+                        placeholder="Apellido" 
+                        value={formData.surname} 
+                        onChange={(e) => setFormData({...formData, surname: e.target.value})} 
+                        className={`w-full p-3 rounded-lg bg-neutral-900 border ${errors.surname ? 'border-red-500' : 'border-neutral-700'} text-white outline-none focus:ring-2 focus:ring-violet-600 transition-all`} 
+                        />
                         
                         <input type="email" name="email" placeholder="Correo electrónico" value={formData.email}
                                onChange={(e) => setFormData({...formData, email: e.target.value})} 
