@@ -1,13 +1,9 @@
 import SideMenuItem from "./SideMenuItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faHouse,
-  faMicrophone,
-  faCompactDisc,
-  faCircleInfo,
-  faListUl,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
+import { faHouse, faMicrophone, faCompactDisc, faCircleInfo, faListUl, faSearch, faHeart, faLock } from "@fortawesome/free-solid-svg-icons";
+import { useSongs } from '../context/SongsContext';
+import { useAuth } from '../context/AuthContext';
+
 
 const menuItems = [
   { href: "/",                        label: "Inicio",               icon: faHouse },
@@ -19,6 +15,8 @@ const menuItems = [
 ];
 
 function Aside({ onItemClick }) {
+    const { playlists } = useSongs();
+  const { isAdmin } = useAuth();
   return (
     <aside className="hidden md:flex flex-col
                       bg-linear-to-b from-purple-950/40 to-black/40
