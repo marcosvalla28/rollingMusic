@@ -11,7 +11,7 @@ const menuItems = [
   { href: "/artista",                  label: "Artista",              icon: faMicrophone },
   { href: "/album",                    label: "Album",                icon: faCompactDisc },
   { href: "/nosotros",                 label: "Sobre Nosotros",       icon: faCircleInfo },
-  { href: "/lista-de-reproduccion",    label: "Lista de ReproducciÃ³n",icon: faListUl },
+  { href: "/lista-de-reproduccion",    label: "Lista de Reproducción",icon: faListUl },
 ];
 
 function Aside({ onItemClick }) {
@@ -35,7 +35,7 @@ function Aside({ onItemClick }) {
             </SideMenuItem>
           ))}
 
-          {/* 🛠️ FAVORITOS (Separado de Playlists) */}
+          {/*  FAVORITOS (Separado de Playlists) */}
           <SideMenuItem href="/favoritos" onClick={onItemClick}>
             <FontAwesomeIcon
               icon={faHeart}
