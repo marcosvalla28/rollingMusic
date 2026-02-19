@@ -12,6 +12,7 @@ export default function Player() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.5);
   const [isMuted, setIsMuted] = useState(false);
+  const [showVolume, setShowVolume] = useState(false);
 
   // Definir la URL de audio compatible
   const audioUrl = currentSong ? (currentSong.url_cancion || currentSong.preview) : null;
@@ -95,11 +96,11 @@ export default function Player() {
 
 
   return (
-<div className="w-full h-full flex flex-col items-center justify-center gap-2 p-2 bg-gradient-to-l from-purple-950/40 to-black/40 text-white">
+<div className="w-full h-full flex flex-col items-center justify-center gap-2 p-2 bg-linear-to-l from-purple-950/40 to-black/40 text-white">
       {/* Contenedor de ondas */}
       <div
         ref={containerRef}
-        className="w-200 h-8 bg-linear-to-b overflow-hidden cursor-pointer mt-5"
+        className="hidden sm:block w-200 h-8 bg-linear-to-b overflow-hidden cursor-pointer mt-5"
       />
 
       {/* Controles */}
@@ -155,29 +156,55 @@ export default function Player() {
           <FontAwesomeIcon icon={faForward} />
         </button>
 
-        <div className="flex items-center gap-2 ml-4">
-          <button onClick={toggleMute} className="flex items-center justify-center">
-            {isMuted || volume === 0
-              ? <FontAwesomeIcon icon={faVolumeMute} className="w-5 h-5 text-gray-400" />
-              : <VolumeIcon className="w-5 h-5 text-white" />
-            }
+        <div className="relative flex items-center ml-4">
+          <button
+            onClick={() => setShowVolume(!showVolume)}
+            className="flex items-center justify-center"
+          >
+            <VolumeIcon className="w-5 h-5 text-white" />
           </button>
-          <input
-            type="range"
-            min={0}
-            max={1}
-            step={0.01}
-            value={isMuted ? 0 : volume}
-            onChange={handleVolume}
-            className="w-32 h-1 rounded-full accent-purple-600 cursor-pointer"
-            style={{
-              background: `linear-gradient(to right, #a855f7 0%, #d946ef ${
-                (isMuted ? 0 : volume) * 100
-              }%, rgba(88,28,135,0.3) ${
-                (isMuted ? 0 : volume) * 100
-              }%, rgba(88,28,135,0.3) 100%)`,
-            }}
-          />
+
+          <div className="hidden sm:flex items-center gap-2 ml-2">
+            <input
+              type="range"
+              min={0}
+              max={1}
+              step={0.01}
+              value={volume}
+              onChange={handleVolume}
+              className="w-32 h-1 rounded-full accent-purple-600 cursor-pointer"
+              style={{
+                background: `linear-gradient(to right, #a855f7 0%, #d946ef ${
+                  volume * 100
+                }%, rgba(88,28,135,0.3) ${
+                  volume * 100
+                }%, rgba(88,28,135,0.3) 100%)`,
+              }}
+            />
+          </div>
+
+          {showVolume && (
+            <div
+              className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2
+               bg-black/95 backdrop-blur-md
+               p-4 rounded-xl shadow-2xl
+               sm:hidden z-50 flex items-center justify-center"
+            >
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.01}
+                value={volume}
+                onChange={handleVolume}
+                className="h-32 w-1 accent-purple-600 cursor-pointer appearance-none"
+                style={{
+                  writingMode: "bt-lr",
+                  WebkitAppearance: "slider-vertical",
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
