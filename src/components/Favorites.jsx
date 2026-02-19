@@ -35,12 +35,12 @@ const Favorites = () => {
                 <Aside />
             </aside>
 
-            <main className="[grid-area:main] overflow-y-auto w-full bg-gradient-to-b from-red-900/20 to-black">
+            <main className="[grid-area:main] overflow-y-auto w-full bg-linear-to-b from-red-900/20 to-black">
                 <div className="p-4 md:p-8 space-y-8 max-w-7xl mx-auto">
                     
                     {/* ENCABEZADO */}
                     <div className="flex items-center gap-6 mb-10">
-                        <div className="w-40 h-40 bg-gradient-to-br from-red-600 to-red-900 rounded-2xl shadow-2xl flex items-center justify-center text-6xl">
+                        <div className="w-40 h-40 bg-linear-to-br from-red-600 to-red-900 rounded-2xl shadow-2xl flex items-center justify-center text-6xl">
                             ❤️
                         </div>
                         <div>

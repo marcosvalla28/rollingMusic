@@ -6,7 +6,7 @@ function NotFound() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center
-      bg-gradient-to-r from-[#0d001a] via-[#1a0033] to-[#0d001a]
+      bg-linear-to-r from-[#0d001a] via-[#1a0033] to-[#0d001a]
       px-6 text-white space-y-10">
 
       {/* Logo */}
@@ -20,7 +20,7 @@ function NotFound() {
       <h1
         className="text-8xl md:text-9xl font-extrabold
         text-transparent bg-clip-text
-        bg-gradient-to-r from-purple-400 to-violet-300
+        bg-linear-to-r from-purple-400 to-violet-300
         drop-shadow-lg"
       >
         404
@@ -42,7 +42,7 @@ function NotFound() {
       <button
         onClick={() => navigate("/")}
         className="mt-4 px-6 py-3 rounded-2xl font-semibold
-        bg-gradient-to-r from-purple-950 to-neutral-900
+        bg-linear-to-r from-purple-950 to-neutral-900
         text-white shadow-md
         transition-transform duration-200 hover:scale-105"
       >

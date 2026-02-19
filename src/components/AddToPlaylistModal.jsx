@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import musicApi from '../services/musicApi';
 
 const AddToPlaylistModal = ({ song, onClose }) => {
-    // 🛠️ Extraemos 'getUserPlaylists' para refrescar la lista después de agregar
+    //  Extraemos 'getUserPlaylists' para refrescar la lista después de agregar
     const { playlists, getUserPlaylists } = useSongs();
     
     const API_URL_FILES = import.meta.env.VITE_API_URL_FILES || 'http://localhost:3000';
@@ -17,7 +17,7 @@ const AddToPlaylistModal = ({ song, onClose }) => {
             const response = await musicApi.patch(`/playlists/add/${playlistId}/${songId}`);
             
             if (response.data.ok) {
-                // 🛠️ Refrescamos las playlists en el contexto para que el contador de canciones suba
+                //  Refrescamos las playlists en el contexto para que el contador de canciones suba
                 if (getUserPlaylists) await getUserPlaylists();
 
                 Swal.fire({
@@ -58,7 +58,7 @@ const AddToPlaylistModal = ({ song, onClose }) => {
                 <div className="space-y-3 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
                     {playlists && playlists.length > 0 ? (
                         playlists.map(pl => {
-                            // 🛠️ AJUSTE DE RUTA: Apuntamos a /uploads/playlists/
+                            //  AJUSTE DE RUTA: Apuntamos a /uploads/playlists/
                             const plImage = pl.img?.startsWith('http') 
                                 ? pl.img 
                                 : `${API_URL_FILES}/uploads/playlists/${pl.img || 'default-playlist.png'}`;

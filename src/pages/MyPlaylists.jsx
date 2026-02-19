@@ -40,7 +40,7 @@ const MyPlaylists = () => {
             <header className="[grid-area:navbar] z-50"><Navbar toggleSidebar={() => setIsOpen(!isOpen)}/></header>
             <aside className="[grid-area:aside] bg-neutral-950 transition-all overflow-y-auto"><Aside /></aside>
 
-            <main className="[grid-area:main] overflow-y-auto bg-gradient-to-b from-purple-900/20 to-black p-8">
+            <main className="[grid-area:main] overflow-y-auto bg-linear-to-b from-purple-900/20 to-black p-8">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex justify-between items-center mb-10">
                         <h1 className="text-4xl font-black">Mis Playlists</h1>

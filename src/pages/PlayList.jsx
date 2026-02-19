@@ -151,9 +151,9 @@ function PlayList() {
                 <Aside />
             </aside>
 
-            <main className="[grid-area:main] overflow-y-auto bg-gradient-to-b from-blue-900/20 to-black w-full">
+            <main className="[grid-area:main] overflow-y-auto bg-linear-to-b from-blue-900/20 to-black w-full">
                 
-                <div className="flex flex-col md:flex-row items-center md:items-end gap-6 p-8 bg-gradient-to-b from-blue-600/20 to-transparent">
+                <div className="flex flex-col md:flex-row items-center md:items-end gap-6 p-8 bg-linear-to-b from-blue-600/20 to-transparent">
                     <div className="w-48 h-48 bg-neutral-800 shadow-2xl flex items-center justify-center rounded-lg border border-white/10 overflow-hidden shrink-0 group relative">
                         {currentPlaylist?.img ? (
                             <img src={currentPlaylist.img} alt={currentPlaylist.name} className="w-full h-full object-cover" />
