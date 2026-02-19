@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import Fondo from '../assets/imagenes/logos/FondoLogo.jpg';
 import logo from '../assets/imagenes/logos/Logo.png';
 
-const initialFormState = { username: '', email: '', password: '', confirmPassword: '' };
+const initialFormState = { username: '', surname: '', email: '', password: '', confirmPassword: '' };
 
 const RegisterForm = () => {
     const { registerWithEmail } = useAuth();
