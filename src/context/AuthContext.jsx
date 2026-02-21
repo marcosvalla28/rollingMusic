@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 import musicApi from "../services/musicApi";
 import googleAuthService from "../services/googleAuth";
 import Swal from "sweetalert2";
@@ -12,16 +12,16 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser]         = useState(null);
     const [isLoading, setIsLoading] = useState(true);
 
-    const saveSession = (userData, token) => {
+    const saveSession = useCallback((userData, token) => {
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(userData));
         setUser(userData);
-    };
+    }, []);
 
-    const loginWithEmail = async (email, password) => {
+    const loginWithEmail = useCallback(async (email, password) => {
         const response = await musicApi.post("/auth/login", { email, password });
         const { token, data } = response.data;
 
@@ -37,9 +37,9 @@ export const AuthProvider = ({ children }) => {
         }, token);
 
         return data;
-    };
+    }, [saveSession]);
 
-    const loginWithGoogle = async () => {
+    const loginWithGoogle = useCallback(async () => {
         try {
             const firebaseUser = await googleAuthService.loginWithGoogle();
             if (!firebaseUser?.email) throw new Error("No se pudo obtener el usuario de Google");
@@ -72,9 +72,9 @@ export const AuthProvider = ({ children }) => {
             console.log("Errores específicos:", JSON.stringify(error.response?.data?.errors));
             throw error;
         }
-    };
+    }, [saveSession]);
 
-    const updateUserData = async (updatedData) => {
+    const updateUserData = useCallback(async (updatedData) => {
         const response = await musicApi.put("/auth/profile/update", {
             name: updatedData.name,
             surname: updatedData.surname,
@@ -90,9 +90,9 @@ export const AuthProvider = ({ children }) => {
 
         saveSession(newUserState, updatedToken);
         return data;
-    };
+    }, [user, saveSession]);
 
-    const registerWithEmail = async (formData) => {
+    const registerWithEmail = useCallback(async (formData) => {
         await musicApi.post("/auth/register", formData, {
             headers: { "Content-Type": "multipart/form-data" },
         });
@@ -101,9 +101,9 @@ export const AuthProvider = ({ children }) => {
             text: "Te enviamos un código de verificación. Revisa tu email para activar tu cuenta.",
             icon: "success",
         });
-    };
+    }, []);
 
-    const logout = () => {
+    const logout = useCallback(() => {
         try {
             const storedUser = JSON.parse(localStorage.getItem("user"));
             if (storedUser?.isGoogleUser) googleAuthService.logout();
@@ -113,7 +113,7 @@ export const AuthProvider = ({ children }) => {
             setUser(null);
             localStorage.clear();
         }
-    };
+    }, []);
 
     useEffect(() => {
         try {
