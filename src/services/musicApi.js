@@ -6,6 +6,8 @@ const musicApi = axios.create({
     baseURL: API_URL,
 });
 
+console.log(musicApi.defaults.baseURL);
+
 // Agrega el token
 musicApi.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');

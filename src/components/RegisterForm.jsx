@@ -106,7 +106,7 @@ const RegisterForm = () => {
                 
                 {/* MODAL CROPPER */}
                 {showCropper && (
-                    <div className="fixed inset-0 z-[100] bg-black/95 flex flex-col items-center justify-center p-4 backdrop-blur-md">
+                    <div className="fixed inset-0 z-100 bg-black/95 flex flex-col items-center justify-center p-4 backdrop-blur-md">
                         <div className="relative w-full h-[60vh] max-w-xl rounded-xl overflow-hidden shadow-2xl">
                             <Cropper
                                 image={image}
