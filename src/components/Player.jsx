@@ -65,7 +65,7 @@ export default function Player() {
 
   const togglePlay = () => waveSurferRef.current?.playPause();
 
-  // ✅ ÚNICO CAMBIO FUNCIONAL: toggleMute conectado al botón
+  //  toggleMute conectado al botón
   const toggleMute = () => {
     const ws = waveSurferRef.current;
     if (!ws) return;

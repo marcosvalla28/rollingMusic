@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSongs } from "../context/SongsContext";
 import { useNavigate } from "react-router-dom";
 import AddToPlaylistModal from "./AddToPlaylistModal";
 
-// 🛠️ Recibimos onRemoveSong e isPlaylistView como props
+//  Recibimos onRemoveSong e isPlaylistView como props
 const Canciones = ({ songs, onRemoveSong, isPlaylistView = false }) => {
   const { selectSong, toggleFavorite, favorites } = useSongs();
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const Canciones = ({ songs, onRemoveSong, isPlaylistView = false }) => {
                       gap-3 sm:gap-4 md:gap-6 w-full py-4">
         {songs.map((item, index) => {
           
-          // 🛠️ LÓGICA DE IMAGEN
+          //  LÓGICA DE IMAGEN
           let imageUrl = item.cover || item.imagePath || item.cover_medium || item.imagenUrl || item.album?.cover_medium;
           
           if (imageUrl && !imageUrl.startsWith('http')) {
@@ -29,7 +29,7 @@ const Canciones = ({ songs, onRemoveSong, isPlaylistView = false }) => {
             imageUrl = "https://i.ibb.co/ZRn36S2x/Cover-Default-Playlist.jpg";
           }
 
-          // 🛠️ LÓGICA DE REPRODUCCIÓN
+          //  LÓGICA DE REPRODUCCIÓN
           if (item.audio && !item.audio.startsWith('http')) {
             item.preview = `${API_URL_FILES}/uploads/songs/${item.audio}`;
           }
@@ -77,7 +77,7 @@ const Canciones = ({ songs, onRemoveSong, isPlaylistView = false }) => {
                 </svg>
               </button>
 
-              {/* 🛠️ BOTÓN CONDICIONAL: QUITAR DE PLAYLIST O AGREGAR A PLAYLIST */}
+              {/*  BOTÓN CONDICIONAL: QUITAR DE PLAYLIST O AGREGAR A PLAYLIST */}
               {isPlaylistView ? (
                 <button
                   onClick={(e) => {
