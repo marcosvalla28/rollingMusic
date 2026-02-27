@@ -52,6 +52,7 @@ const Search = () => {
   }
 
   return (
+    <>
     <div className="animate-fade-in px-4 md:px-8 py-6 w-full max-w-7xl mx-auto">
 
       <h2 className="text-3xl font-black text-violet-400 mb-8 border-b border-violet-900/30 pb-4">
@@ -119,9 +120,9 @@ const Search = () => {
           )}
         </div>
       </div>
-
-      <Footer />
     </div>
+        <Footer />
+    </>
   );
 };
 

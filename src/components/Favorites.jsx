@@ -19,6 +19,7 @@ const Favorites = () => {
     }, [favorites, adminSongs, songs]);
 
     return (
+         <>
         <div className="animate-fade-in p-4 md:p-8 w-full min-h-full bg-linear-to-b from-red-900/10 to-black">
 
             {/* Cabecera */}
@@ -48,9 +49,9 @@ const Favorites = () => {
             ) : (
                 <Canciones songs={favoriteSongs} />
             )}
-
-            <Footer />
         </div>
+            <Footer />
+             </>
     );
 };
 

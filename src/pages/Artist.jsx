@@ -82,6 +82,7 @@ const Artist = () => {
     };
 
     return (
+        <>
         <div className="min-h-full bg-black text-white">
 
             {/* ── DETAIL VIEW ── */}
@@ -258,10 +259,11 @@ const Artist = () => {
                             ))}
                         </div>
                     )}
-                    <Footer />
                 </div>
             )}
         </div>
+          <Footer />
+         </>
     );
 };
 

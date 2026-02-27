@@ -62,6 +62,7 @@ const Album = () => {
     };
 
     return (
+          <>
         <div className="min-h-full bg-black text-white">
 
             {/* DETAILS */}
@@ -207,10 +208,11 @@ const Album = () => {
                             ))}
                         </div>
                     )}
-                    <Footer />
                 </div>
             )}
         </div>
+             <Footer />
+             </>
     );
 };
 
