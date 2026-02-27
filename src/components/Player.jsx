@@ -6,27 +6,21 @@ import { faBackward, faForward, faVolumeMute } from "@fortawesome/free-solid-svg
 import { useSongs } from "../context/SongsContext";
 
 export default function Player() {
-  const { currentSong, selectSong, songs } = useSongs();
+  const { currentSong} = useSongs();
   const containerRef = useRef(null);
   const waveSurferRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.5);
   const [isMuted, setIsMuted] = useState(false);
-  const [showVolume, setShowVolume] = useState(false);
+  const [showVolume] = useState(false);
 
-  // Definir la URL de audio compatible
   const audioUrl = currentSong ? (currentSong.url_cancion || currentSong.preview) : null;
-  //  Definir metadatos compatibles
   const displayTitle = currentSong?.titulo || currentSong?.title;
   const displayArtist = currentSong?.artista || currentSong?.artist?.name;
   const displayImage = currentSong?.url_imagen || currentSong?.album?.cover_medium || currentSong?.imagenUrl;
 
-
-
   useEffect(() => {
     if (!containerRef.current) return;
-
-
 
     const ws = WaveSurfer.create({
       container: containerRef.current,
@@ -50,31 +44,28 @@ export default function Player() {
     return () => ws.destroy();
   }, []);
 
-  // Usar la URL de audio compatible
   useEffect(() => {
     if (audioUrl && waveSurferRef.current) {
-      //  Se usa la variable compatible audioUrl
-      waveSurferRef.current.load(audioUrl); 
+      waveSurferRef.current.load(audioUrl);
 
       const ws = waveSurferRef.current;
 
       ws.once("ready", () => {
         ws.play();
-        setIsPlaying(true); 
+        setIsPlaying(true);
       });
 
       ws.on("finish", () => setIsPlaying(false));
     }
-  }, [audioUrl]); 
-
+  }, [audioUrl]);
 
   const playNextSong = () => {
-    
-  };
 
+  };
 
   const togglePlay = () => waveSurferRef.current?.playPause();
 
+  //  toggleMute conectado al botón
   const toggleMute = () => {
     const ws = waveSurferRef.current;
     if (!ws) return;
@@ -93,7 +84,6 @@ export default function Player() {
     setIsMuted(false);
     waveSurferRef.current?.setVolume(newVol);
   };
-
 
   return (
 <div className="w-full h-full flex flex-col items-center justify-center gap-2 p-2 bg-linear-to-l from-purple-950/40 to-black/40 text-white">
@@ -123,7 +113,6 @@ export default function Player() {
             Reproduciendo: {displayTitle} - {displayArtist}
           </p>
         )}
-        
 
         <button
           onClick={() => {
@@ -135,7 +124,7 @@ export default function Player() {
           <FontAwesomeIcon icon={faBackward} />
         </button>
 
-        {/* play.pause*/}
+        {/* play/pause */}
         <button
           onClick={togglePlay}
           className="relative w-10 h-10 flex items-center justify-center bg-linear-to-br from-purple-600 via-violet-600 to-fuchsia-600 rounded-full shadow-lg shadow-purple-500/50 transition-all duration-300 hover:scale-110 hover:shadow-purple-500/70 active:scale-95 group"
@@ -158,10 +147,14 @@ export default function Player() {
 
         <div className="relative flex items-center ml-4">
           <button
-            onClick={() => setShowVolume(!showVolume)}
+            onClick={toggleMute}
             className="flex items-center justify-center"
+            title={isMuted ? "Activar sonido" : "Silenciar"}
           >
-            <VolumeIcon className="w-5 h-5 text-white" />
+            {isMuted
+              ? <FontAwesomeIcon icon={faVolumeMute} className="w-5 h-5 text-gray-400" />
+              : <VolumeIcon className="w-5 h-5 text-white" />
+            }
           </button>
 
           <div className="hidden sm:flex items-center gap-2 ml-2">

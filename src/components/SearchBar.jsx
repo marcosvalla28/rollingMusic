@@ -18,14 +18,14 @@ const SearchBar = () => {
   const processSearch = async (e) => {
     e.preventDefault();
     const query = inputValue.trim();
-    
+
     if (query) {
       handleSearch(query); // No enviamos el segundo parámetro, por defecto es isGenre = false
       navigate("/search");
-      
+
       try {
         // 🛠️ Ejecutamos la búsqueda (que debe estar en tu SongsContext.jsx)
-        await handleSearch(query); 
+        await handleSearch(query);
       } catch (error) {
         console.error("Error al procesar la búsqueda:", error);
       }
@@ -35,7 +35,7 @@ const SearchBar = () => {
   const handleClearAction = () => {
     setInputValue("");
     clearSearch();
-    navigate("/"); 
+    navigate("/");
   };
 
   return (
@@ -46,11 +46,11 @@ const SearchBar = () => {
     >
       <div className="relative flex items-center w-full">
         {/* Icono de lupa decorativo */}
-        <FontAwesomeIcon 
-          icon={faSearch} 
+        <FontAwesomeIcon
+          icon={faSearch}
           className="absolute left-3 text-gray-500 group-focus-within:text-purple-400 transition-colors"
         />
-        
+
         <input
           type="text"
           placeholder="¿Qué quieres escuchar?"

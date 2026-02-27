@@ -8,17 +8,17 @@ import { useAuth } from '../context/AuthContext';
 const menuItems = [
   { href: "/",                        label: "Inicio",               icon: faHouse },
     { href: "/search",                    label: "Explorar",                icon: faSearch },
-  { href: "/artista",                  label: "Artista",              icon: faMicrophone },
+  { href: "/artist",                  label: "Artista",              icon: faMicrophone },
   { href: "/album",                    label: "Album",                icon: faCompactDisc },
   { href: "/nosotros",                 label: "Sobre Nosotros",       icon: faCircleInfo },
-  { href: "/lista-de-reproduccion",    label: "Lista de Reproducción",icon: faListUl },
+  { href: "/mis-playlists",    label: "Lista de Reproducción",icon: faListUl },
 ];
 
 function Aside({ onItemClick }) {
     const { playlists } = useSongs();
   const { isAdmin } = useAuth();
   return (
-    <aside className="hidden md:flex flex-col
+    <aside className="flex flex-col
                       bg-linear-to-b from-purple-950/40 to-black/40
                       border-r border-purple-500/10
                       w-full h-full overflow-y-auto">

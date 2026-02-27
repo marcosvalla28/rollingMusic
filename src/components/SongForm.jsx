@@ -61,7 +61,7 @@ const SongForm = ({ initialData, onSubmit, onCancel }) => {
             // 2. Preparamos el FormData para Multer
             const data = new FormData();
             
-            // 🛠️ Mapeo exacto a las keys que espera el Modelo/Backend
+            //  Mapeo exacto a las keys que espera el Modelo/Backend
             data.append('title', formData.titulo);
             data.append('artist', formData.artista);
             data.append('genre', formData.categoria);
@@ -106,7 +106,7 @@ const SongForm = ({ initialData, onSubmit, onCancel }) => {
         <div className="mb-4">
             <label htmlFor={name} className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
             {name === 'categoria' ? (
-                // 🛠️ Usamos un select para asegurar que el género sea válido para el ENUM del modelo
+                //  Usamos un select para asegurar que el género sea válido para el ENUM del modelo
                 <select
                     id={name}
                     name={name}

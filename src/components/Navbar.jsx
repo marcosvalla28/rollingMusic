@@ -34,7 +34,7 @@ const Navbar = ({ toggleSidebar }) => {
 
   return (
     <>
-      <header className="bg-gradient-to-r from-[#120228] to-[#4b0082]
+      <header className="bg-linear-to-r from-[#120228] to-[#4b0082]
                         flex items-center justify-between
                         w-full h-full px-3 sm:px-4 md:px-6
                         z-40 relative shadow-lg shadow-black/20">
@@ -146,7 +146,7 @@ const Navbar = ({ toggleSidebar }) => {
       {/* Drawer móvil mejorado */}
       {isMobileMenuOpen && (
         <div
-          className="md:hidden fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm transition-all duration-300"
+          className="md:hidden fixed inset-0 z-60 bg-black/80 backdrop-blur-sm transition-all duration-300"
           onClick={() => setIsMobileMenuOpen(false)}
         >
           <div

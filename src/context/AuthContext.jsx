@@ -1,139 +1,137 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import musicApi from '../services/musicApi'; 
-import googleAuthService from '../services/googleAuth'; 
-import Swal from 'sweetalert2';
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
+import musicApi from "../services/musicApi";
+import googleAuthService from "../services/googleAuth";
+import Swal from "sweetalert2";
 
 const AuthContext = createContext();
-export const useAuth = () => useContext(AuthContext);
 
-export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
-
-    const saveSession = (userData, token) => {
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(userData));
-        setUser(userData);
-    };
-
-    const loginWithEmail = async (email, password) => {
-        try {
-            const response = await musicApi.post('/auth/login', { email, password });
-            const { token, data } = response.data;
-
-            saveSession({
-                id: data.id || data._id, // Normalizamos el ID
-                email: data.email,
-                displayName: data.name,
-                role: data.role,
-                avatar: data.img // Guardamos la imagen de perfil que viene del server
-            }, token);
-            
-            return data;
-        } catch (error) {
-            const msg = error.response?.data?.message || 'Error al iniciar sesión';
-            // Dejamos que el componente maneje el Swal si prefieres, 
-            // pero lo mantenemos aquí por seguridad.
-            throw error; 
-        }
-    };
-
-    const loginWithGoogle = async () => {
-    try {
-        const firebaseUser = await googleAuthService.loginWithGoogle();
-        
-        const fullName = firebaseUser.displayName || "Usuario Google";
-        const [firstName, ...lastNameParts] = fullName.split(" ");
-        const lastName = lastNameParts.join(" ") || "Google";
-
-        // 🛠️ Enviamos 'isGoogleLogin' como string para asegurar compatibilidad
-        const response = await musicApi.post('/auth/login', { 
-            email: firebaseUser.email,
-            name: firstName,
-            surname: lastName,
-            isGoogleLogin: "true" 
-        });
-
-        const { token, data } = response.data;
-        saveSession({
-            id: data.id || data._id,
-            email: data.email,
-            displayName: data.name,
-            role: data.role,
-            avatar: data.photoURL || data.profilePic
-        }, token);
-
-        return response.data; // 🛠️ IMPORTANTE: Retorna la data para que el Form sepa que terminó
-    } catch (error) {
-        console.error('Detalle error backend:', error.response?.data);
-        throw error; 
-    }
-    };
-
-    const updateUserData = async (updatedData) => {
-    try {
-        // Solo mandamos name y surname
-        const dataToSend = {
-            name: updatedData.name,
-            surname: updatedData.surname
-        };
-
-        const response = await musicApi.put('/auth/profile/update', dataToSend);
-        const { data } = response.data;
-
-        // Actualizamos el estado local manteniendo el mismo email
-        const newUserState = { 
-            ...user, 
-            displayName: `${data.name} ${data.surname || ''}`.trim()
-        };
-        
-        saveSession(newUserState, localStorage.getItem('token'));
-        return data;
-    } catch (error) {
-        throw error;
-    }
+export const useAuth = () => {
+    const context = useContext(AuthContext);
+    if (!context) throw new Error("useAuth debe usarse dentro de un AuthProvider");
+    return context;
 };
 
-    // --- 🛠️ REGISTRO ACTUALIZADO PARA FORMDATA ---
-    const registerWithEmail = async (formData) => {
-        try {
-            // Importante: No desestructuramos (email, password...), 
-            // recibimos el objeto FormData completo que viene del componente.
-            await musicApi.post('/auth/register', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-            
-            Swal.fire({
-                title: '¡Registro exitoso!',
-                text: 'Te enviamos un código de verificación. Revisa tu email para activar tu cuenta.',
-                icon: 'success'
-            });
-        } catch (error) {
-            console.error("Error en registro:", error);
-            throw error; // Lanzamos el error para que el componente lo muestre con Swal
-        }
-    };
+export const AuthProvider = ({ children }) => {
+    const [user, setUser]         = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
-    const logout = () => {
-        setUser(null);
-        localStorage.clear();
-        googleAuthService.logout(); 
-    };
-
-    useEffect(() => {
-        const storedUser = JSON.parse(localStorage.getItem('user'));
-        const token = localStorage.getItem('token');
-        if (storedUser && token) setUser(storedUser);
-        setIsLoading(false);
+    const saveSession = useCallback((userData, token) => {
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(userData));
+        setUser(userData);
     }, []);
 
-    const isAdmin = user && (user.role === 'admin' || user.role === 'superadmin');
+    const loginWithEmail = useCallback(async (email, password) => {
+        const response = await musicApi.post("/auth/login", { email, password });
+        const { token, data } = response.data;
+
+        if (!data || !token) throw new Error("Respuesta inesperada del backend");
+
+        saveSession({
+            id: data?.id || data?._id || null,
+            email: data?.email || email,
+            displayName: data?.name,
+            role: data?.role || "user",
+            avatar: data?.profilePic || null,
+            isGoogleUser: false,
+        }, token);
+
+        return data;
+    }, [saveSession]);
+
+    const loginWithGoogle = useCallback(async () => {
+        try {
+            const firebaseUser = await googleAuthService.loginWithGoogle();
+            if (!firebaseUser?.email) throw new Error("No se pudo obtener el usuario de Google");
+
+            const fullName = firebaseUser.displayName || "Usuario Google";
+            const [firstName, ...lastNameParts] = fullName.split(" ");
+            const lastName = lastNameParts.join(" ") || "Google";
+
+            const response = await musicApi.post("/auth/login", {
+                email: firebaseUser.email,
+                name: firstName,
+                surname: lastName,
+                isGoogleLogin: true,
+            });
+
+            const { token, data } = response.data;
+            if (!data || !token) throw new Error("Respuesta inesperada del backend");
+
+            saveSession({
+                id: data?.id || data?._id || null,
+                email: data?.email || firebaseUser.email,
+                displayName: data?.name || firebaseUser.displayName,
+                role: data?.role || "user",
+                avatar: data?.profilePic || firebaseUser.photoURL || null,
+                isGoogleUser: true,
+            }, token);
+
+            return response.data;
+        } catch (error) {
+            console.log("Errores específicos:", JSON.stringify(error.response?.data?.errors));
+            throw error;
+        }
+    }, [saveSession]);
+
+    const updateUserData = useCallback(async (updatedData) => {
+        const response = await musicApi.put("/auth/profile/update", {
+            name: updatedData.name,
+            surname: updatedData.surname,
+        });
+
+        const { token: newToken, data } = response.data;
+        const updatedToken = newToken || localStorage.getItem("token");
+
+        const newUserState = {
+            ...user,
+            displayName: `${data.name} ${data.surname || ""}`.trim(),
+        };
+
+        saveSession(newUserState, updatedToken);
+        return data;
+    }, [user, saveSession]);
+
+    const registerWithEmail = useCallback(async (formData) => {
+        await musicApi.post("/auth/register", formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+        });
+        Swal.fire({
+            title: "¡Registro exitoso!",
+            text: "Te enviamos un código de verificación. Revisa tu email para activar tu cuenta.",
+            icon: "success",
+        });
+    }, []);
+
+    const logout = useCallback(() => {
+        try {
+            const storedUser = JSON.parse(localStorage.getItem("user"));
+            if (storedUser?.isGoogleUser) googleAuthService.logout();
+        } catch {
+            // Si hay error leyendo localStorage, igual continuamos
+        } finally {
+            setUser(null);
+            localStorage.clear();
+        }
+    }, []);
+
+    useEffect(() => {
+        try {
+            const storedUser = JSON.parse(localStorage.getItem("user"));
+            const token = localStorage.getItem("token");
+            if (storedUser && token) setUser(storedUser);
+        } catch {
+            localStorage.clear();
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
+
+    const isAdmin = user && (user.role === "admin" || user.role === "superadmin");
 
     const value = {
         user,
-        isAdmin, 
+        isAdmin,
         isLogged: !!user,
         isLoading,
         loginWithEmail,

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 
-
 export default function PlaylistItem({ playlist }) {
   const { id, cover, titulo, artists } = playlist;
   const artista = artists.join(", ");
@@ -13,7 +12,7 @@ export default function PlaylistItem({ playlist }) {
       <picture className="h-12 w-12 flex-none">
         <img
           src={cover}
-          alt={`Cover of ${titulo} by ${artista}`} 
+          alt={`Cover of ${titulo} by ${artista}`}
           className="object-cover w-full h-full rounded-md"
         />
       </picture>

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSongs } from "../context/SongsContext";
 import { useNavigate } from 'react-router-dom';
-// 🛠️ CORRECCIÓN: Las funciones de catálogo externo vienen de deezerService
+// Las funciones de catálogo externo vienen de deezerService
 import * as deezerService from '../services/deezerService';
 
 const CatalogoPorSecciones = () => {
