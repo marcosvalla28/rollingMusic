@@ -12,7 +12,9 @@ import ProtectedRoute from '../components/ProtectedRoute';
 import SongDetail from '../pages/SongDetail';
 import About from '../pages/About';
 import PlayList from '../pages/PlayList';
+import MyPlaylists from '../pages/MyPlaylists';
 import Search from '../pages/Search';
+import Favorites from '../components/Favorites';
 import VerifyEmail from '../pages/VerifyEmail';
 
 
@@ -33,18 +35,14 @@ const AppRouter = () => {
                         <Route path="/nosotros" element={<About/>}/>
                         <Route path="/songdetail" element={<SongDetail />} />
                         <Route path="/search" element={<Search />} />
-                        <Route path="/lista-de-reproduccion" element={<PlayList />} />
+                        <Route path="/favoritos" element={<Favorites />} />
+                        <Route path="/mis-playlists" element={<MyPlaylists />} /> 
+                        <Route path="/playlist/:id" element={<PlayList />} />
                     </Route>
 
                     {/* RUTAS DE ADMINISTRADOR (Requieren Rol 'admin') */}
                     <Route element={<ProtectedRoute requiredRole="admin" />}>
                         <Route path="/admin" element={<Admin />} />
-                        <Route path="/nosotros" element={<About/>}/>
-                        <Route path="/home" element={<Home />} />
-                        <Route path="/lista-de-reproduccion" element={<PlayList />} />
-                        <Route path="/songdetail" element={<SongDetail />} />
-                        <Route path="/search" element={<Search />} />
-
                     </Route>
 
                     {/* Ruta de Fallback (404) */}

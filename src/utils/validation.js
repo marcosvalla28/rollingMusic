@@ -20,9 +20,7 @@ export const registerSchema = z.object({
 // SCHEMA PARA EL CRUD DE CANCIONES
 
 export const songSchema = z.object({
-    titulo: z.string().min(3, 'El título es requerido y debe tener al menos 3 caracteres'),
-    artista: z.string().min(3, 'El artista o grupo es requerido'),
-    album: z.string().min(3, 'La categoría (Álbum) es requerida'),
-    duracion: z.string().min(1, 'La duración es requerida'),
-    imagenUrl: z.string().url('URL de Imagen inválida').min(1, 'La URL de imagen es requerida'),
+    title: z.string().min(3, 'El título debe tener al menos 3 caracteres'),
+    artist: z.string().min(3, 'El artista debe tener al menos 3 caracteres'),
+    genre: z.string().min(3, 'El género es requerido'),
 });
